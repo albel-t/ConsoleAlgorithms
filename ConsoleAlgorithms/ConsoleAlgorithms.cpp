@@ -20,7 +20,20 @@ int main()
 {
     //mcl::print cout;
     mcl::cmd_color color_1(10, 0);
-    std::string nameFile;
+    cout << "task 1:" * process_color << mcl::endl;
+    task1();
+    cout << "task 2:" * process_color << mcl::endl;
+    task2();
+    cout << "task 3:" * process_color << mcl::endl;
+    task3();
+    cout << "task 4:" * process_color << mcl::endl;
+    task4();
+    cout << "task 5:" * process_color << mcl::endl;
+    task5();
+
+    cout << "task 6:" * process_color << mcl::endl;
+    task6();
+    /*
     cout(10, 10) << "hello world" * color_1 << mcl::endl;
     std::cin >> nameFile;
     auto file1 = open("file11.txt", READ_FILE);
@@ -36,7 +49,7 @@ int main()
     cout << "} " * process_color << mcl::endl;
 
     write(file2, file1_);
-
+    */
 
 
 }

@@ -137,6 +137,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="file11.txt" />
+    <Text Include="file21.txt" />
+    <Text Include="file31.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="file41.test" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

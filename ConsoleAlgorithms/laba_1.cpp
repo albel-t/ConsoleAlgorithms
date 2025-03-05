@@ -79,3 +79,210 @@ bool write(FILE* file, file_data* data)
 	return true;
 }
 
+void close(FILE* file)
+{
+	fclose(file);
+	cout << "file was closed." * success_color << mcl::endl;
+}
+
+void task1()
+{
+	auto file1 = open("file11.txt", READ_FILE);
+	auto file2 = open("file12.txt", WRITE_FILE);
+	file_data* data = read(file1);
+	for (int i = 0; i < data->size; i++)
+	{
+		if (i != 2)
+		{ 
+			fputs(data->strings[i], file2);
+		}
+	}
+	close(file1);
+	close(file2);
+	delete data;
+}
+void task2()
+{
+	auto file1 = open("file21.txt", READ_FILE);
+	file_data* data = read(file1);
+	for (int i = 0; i < data->size; i++)
+	{
+		char tmp[3] = {data->strings[i][0], data->strings[i][1], '\0'};
+		cout << tmp * data_color << mcl::nsep;
+	}
+	cout << mcl::endl;
+	close(file1);
+	delete data;
+
+}
+void task3()
+{
+	auto file1 = open("file31.txt", READ_FILE);
+	auto file2 = open("file32.txt", WRITE_FILE);
+	file_data* data = read(file1);
+	file_data* data_2 = new file_data(FILE_LEN, BUFF_LEN+1);
+	for (int i = 0; i < data->size; i++)
+	{
+		int k = 0;
+		for (int j = 0; j < data_2->lens; j++)
+		{
+			if (data->strings[i][data->lens - j ] > '\0')
+			{
+				data_2->strings[i][k] = data->strings[i][data->lens - j ];
+				k++;
+			}
+
+		}
+		//data_2->strings[i][data->lens - 1] = '\0';
+	}
+	for (int i = 0; i < data->size; i++)
+	{
+		cout << data->strings[i] * data_color << mcl::tab;
+		cout << data_2->strings[i] * data_color << mcl::endl;
+	}
+	cout << mcl::endl;
+
+	write(file2, data_2);
+	close(file1);
+	close(file2);
+	delete data;
+	delete data_2;
+}
+void task4()
+{
+	{
+		srand(time(0));
+		data nums;
+		for (int i = 0; i < 18; i++)
+			nums.num[i] = rand() % 1000 - 500;
+		save("file41.test", &nums);
+	}
+
+	data input = load<data>("file41.test");
+	int nums1[18] = { 0 };
+	int nums2[18] = { 0 };
+	int i1 = 0, i2 = 0;
+	for (int i = 0; i < 18; i++)
+	{
+		if (input.num[i] % 2 == 0)
+		{
+			nums1[i1] = input.num[i];
+			i1++;
+		}
+		else
+		{
+			nums2[i2] = input.num[i];
+			i2++;
+		}
+	}
+
+	for (int i = 0; i < 18; i++)
+	{
+		cout << nums1[i] << "|" << nums2[i] << mcl::endl;
+	}
+	cout << mcl::endl;
+}
+void task5()
+{
+	
+	data_str nums;
+	save<data_str>("file51.test", &nums);
+	data_str input = load<data_str>("file51.test");
+
+	int count = 0;
+	for (int i = 0; i < 5; i++)
+	{
+		if (input.str[i][0] == 'ì')
+		{
+			count++;
+		}
+	}
+	cout << count << mcl::endl;
+}
+void task6()
+{
+	{
+		srand(time(0));
+		data nums;
+		for (int i = 0; i < 18; i++)
+			nums.num[i] = rand() % 1000;
+		save("file61.test", &nums);
+	}
+
+	data input = load<data>("file61.test");
+	data file_1;
+	data file_2;
+	int i1 = 0, i2 = 0;
+	for (int i = 0; i < 18; i++)
+	{
+		if (input.num[i] % 2 == 0)
+		{
+			file_1.num[i1] = input.num[i];
+			i1++;
+		}
+		else
+		{
+			file_2.num[i2] = input.num[i];
+			i2++;
+		}
+	}
+	save("file62.test", &file_1);
+	save("file63.test", &file_2);
+
+	data input1 = load<data>("file62.test");
+	data input2 = load<data>("file63.test");
+
+	for (int i = 0; i < 18; i++)
+	{
+		cout << input1.num[i] << "|" << input2.num[i] << mcl::endl;
+	}
+	cout << mcl::endl;
+}
+
+template<typename data_type>
+void save(const char* filename, data_type* p)
+{
+	FILE* fp;
+	char* c;
+	int size = sizeof(data_type);
+
+	fopen_s(&fp, filename, "wb");
+	if (!fp)
+	{
+		cout << "Error occured while opening file" * error_color << mcl::endl;
+	}
+	c = (char*)p;
+	for (int i = 0; i < size; i++)
+	{
+		putc(*c++, fp);
+	}
+	fclose(fp);
+}
+template<typename data_type>
+data_type load(const char* filename)
+{
+	FILE* fp;
+	char* c;
+	int i;
+	int size = sizeof(data_type);
+	data_type* ptr = (data_type*)malloc(size);
+	fopen_s(&fp, filename, "rb");
+	if (!fp)
+	{
+		printf("Error occured while opening file \n");
+	}
+
+	c = (char*)ptr;
+	while ((i = getc(fp)) != EOF)
+	{
+		*c = i;
+		c++;
+	}
+
+	fclose(fp);
+	data_type tmp = *ptr;
+	free(ptr);
+	return tmp;
+}
+
+
