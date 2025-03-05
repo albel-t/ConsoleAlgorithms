@@ -135,6 +135,9 @@
     <ClInclude Include="laba_1.h" />
     <ClInclude Include="MultiColorLine.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="file11.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

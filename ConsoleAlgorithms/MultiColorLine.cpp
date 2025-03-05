@@ -118,3 +118,8 @@ mcl::print& mcl::operator << (print& out, int num) {
 }
 
 
+mcl::print cout;
+mcl::cmd_color error_color(4, 0);
+mcl::cmd_color success_color(2, 0);
+mcl::cmd_color process_color(3, 0);
+mcl::cmd_color data_color(15, 0);

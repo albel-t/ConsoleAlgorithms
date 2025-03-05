@@ -7,7 +7,7 @@
 #include <windows.h>
 #include <cstdlib>
 
-
+#ifndef text_color
 #define text_color
 
 
@@ -62,7 +62,13 @@ namespace mcl {
     print& operator << (print& out, const char* str);
     print& operator << (print& out, double num);
     print& operator << (print& out, int num);
-};
+} ;
+
+extern mcl::print cout;
+extern mcl::cmd_color error_color;
+extern mcl::cmd_color success_color;
+extern mcl::cmd_color process_color;
+extern mcl::cmd_color data_color;
 
 
 /*
@@ -83,3 +89,5 @@ D/13 = —ветло-лиловый
 E/14 = —ветло-желтый
 F/15 = ярко-белый
 */
+
+#endif
