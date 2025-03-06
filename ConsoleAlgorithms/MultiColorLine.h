@@ -69,7 +69,7 @@ extern mcl::cmd_color error_color;
 extern mcl::cmd_color success_color;
 extern mcl::cmd_color process_color;
 extern mcl::cmd_color data_color;
-
+extern mcl::cmd_color select_color;
 
 /*
 0 = Черный

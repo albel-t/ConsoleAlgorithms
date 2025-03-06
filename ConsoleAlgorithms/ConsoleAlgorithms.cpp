@@ -8,31 +8,119 @@
 #include <windows.h>
 #include <cstdlib>
 
-
-
-
 #include "MultiColorLine.h"
 #include "laba_1.h"
 
+#define LABSCOUNT 2
 
+
+void MenuLab1()
+{
+    system("cls");
+    cout << "Цель работы.Освоить основы работы с базовой системой ввода - вывода в языке С++." << mcl::endl;
+    cout << "1. Дан текстовый файл. Удалить из него третью строку. Результат записать в другой файл;" << mcl::endl;
+    cout << "2. Имеется текстовый файл, в каждой строке которого первые два символа \nявляются буквами.Получить слово, образованное первыми буквами каждой \nстроки;" << mcl::endl;
+    cout << "3. Дан текстовый файл.Переписать его строки в обратном порядке(справа \nналево) в другой файл.Порядок строк во втором файле должен совпадать с \nпорядком строк в заданном файле;" << mcl::endl;
+    cout << "4. Имеется типизированный файл, в котором записаны восемнадцать целых \nчисел.Переписать все положительные числа файла в массив в том же \nпорядке;" << mcl::endl;
+    cout << "5. Дан типизированный файл, элементами которого являются отдельные \nслова.Найти количество слов, начинающихся на букву ‘м’(кириллица);" << mcl::endl;
+    cout << "6. Имеется типизированный файл, элементами которого являются целые \nчисла.Все четные числа этого файла записать во второй файл, а нечетные – в \nтретий файл.Порядок следования чисел сохраняется." << mcl::endl;
+    int select = 1;
+    while (!(GetAsyncKeyState(VK_SPACE) & 0x8000))
+    {
+        if (GetAsyncKeyState(VK_TAB) & 0x8000)
+        {
+            select++;
+            if (select > 6)
+                select = 1;
+            Sleep(70);
+        }
+        for (int l = 1; l <= 6; l++)
+        {
+            if (select == l)
+            {
+                cout(0, l + 15) << " >Task #" * select_color << l << mcl::endl;
+            }
+            else
+            {
+                cout(0, l + 15) << "task #" * data_color << l << "     " << mcl::endl;
+            }
+        }
+    }
+    system("cls");
+    switch (select)
+    {
+    case 1:
+        l1task1();
+        break;
+    case 2:
+        l1task2();
+        break;
+    case 3:
+        l1task3();
+        break;
+    case 4:
+        l1task4();
+        break;
+    case 5:
+        l1task5();
+        break;
+    case 6:
+        l1task6();
+        break;
+    default:
+        break;
+    }
+}
+
+void MainMenu()
+{
+    int select = 1;
+    cout << "Hello! \n This program was made for the assembly of laboratory works." * data_color << mcl::endl;
+    cout << "Now you can select one of " << LABSCOUNT << " labs:" << mcl::endl;
+    while (!(GetAsyncKeyState(VK_SPACE) & 0x8000))
+    {
+        if (GetAsyncKeyState(VK_TAB) & 0x8000)
+        {
+            select++;
+            if (select > LABSCOUNT)
+                select = 1;
+            Sleep(90);
+        }
+        for (int l = 1; l <= LABSCOUNT; l++)
+        {
+            if (select == l)
+            {
+                cout(0, l + 4) << " >laboratory work #" * select_color << l << mcl::endl;
+            }
+            else
+            {
+                cout(0, l + 4) << "laboratory work #" * data_color << l << "     " << mcl::endl;
+            }
+        }
+    }
+    cout(0, LABSCOUNT + 5) << "You select to veiw laboratory work #" * data_color << select << mcl::endl;
+    Sleep(300);
+
+    switch (select)
+    {
+    case 1:
+        MenuLab1();
+        break;
+    default:
+        break;
+    }
+}
 
 int main()
 {
-    //mcl::print cout;
-    mcl::cmd_color color_1(10, 0);
-    cout << "task 1:" * process_color << mcl::endl;
-    task1();
-    cout << "task 2:" * process_color << mcl::endl;
-    task2();
-    cout << "task 3:" * process_color << mcl::endl;
-    task3();
-    cout << "task 4:" * process_color << mcl::endl;
-    task4();
-    cout << "task 5:" * process_color << mcl::endl;
-    task5();
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
 
-    cout << "task 6:" * process_color << mcl::endl;
-    task6();
+    MainMenu();
+
+
+
+
     /*
     cout(10, 10) << "hello world" * color_1 << mcl::endl;
     std::cin >> nameFile;
@@ -53,3 +141,4 @@ int main()
 
 
 }
+

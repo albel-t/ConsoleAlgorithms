@@ -85,7 +85,7 @@ void close(FILE* file)
 	cout << "file was closed." * success_color << mcl::endl;
 }
 
-void task1()
+void l1task1()
 {
 	auto file1 = open("file11.txt", READ_FILE);
 	auto file2 = open("file12.txt", WRITE_FILE);
@@ -101,7 +101,7 @@ void task1()
 	close(file2);
 	delete data;
 }
-void task2()
+void l1task2()
 {
 	auto file1 = open("file21.txt", READ_FILE);
 	file_data* data = read(file1);
@@ -115,7 +115,7 @@ void task2()
 	delete data;
 
 }
-void task3()
+void l1task3()
 {
 	auto file1 = open("file31.txt", READ_FILE);
 	auto file2 = open("file32.txt", WRITE_FILE);
@@ -133,14 +133,12 @@ void task3()
 			}
 
 		}
-		//data_2->strings[i][data->lens - 1] = '\0';
 	}
 	for (int i = 0; i < data->size; i++)
 	{
 		cout << data->strings[i] * data_color << mcl::tab;
 		cout << data_2->strings[i] * data_color << mcl::endl;
 	}
-	cout << mcl::endl;
 
 	write(file2, data_2);
 	close(file1);
@@ -148,7 +146,7 @@ void task3()
 	delete data;
 	delete data_2;
 }
-void task4()
+void l1task4()
 {
 	{
 		srand(time(0));
@@ -182,7 +180,7 @@ void task4()
 	}
 	cout << mcl::endl;
 }
-void task5()
+void l1task5()
 {
 	
 	data_str nums;
@@ -199,7 +197,7 @@ void task5()
 	}
 	cout << count << mcl::endl;
 }
-void task6()
+void l1task6()
 {
 	{
 		srand(time(0));
@@ -245,18 +243,13 @@ void save(const char* filename, data_type* p)
 	FILE* fp;
 	char* c;
 	int size = sizeof(data_type);
-
-	fopen_s(&fp, filename, "wb");
-	if (!fp)
-	{
-		cout << "Error occured while opening file" * error_color << mcl::endl;
-	}
+	fp = open(filename, WRITE_BIN_FILE);
 	c = (char*)p;
 	for (int i = 0; i < size; i++)
 	{
 		putc(*c++, fp);
 	}
-	fclose(fp);
+	close(fp);
 }
 template<typename data_type>
 data_type load(const char* filename)
@@ -266,11 +259,9 @@ data_type load(const char* filename)
 	int i;
 	int size = sizeof(data_type);
 	data_type* ptr = (data_type*)malloc(size);
-	fopen_s(&fp, filename, "rb");
-	if (!fp)
-	{
-		printf("Error occured while opening file \n");
-	}
+
+	fp = open(filename, READ_BIN_FILE);
+
 
 	c = (char*)ptr;
 	while ((i = getc(fp)) != EOF)
@@ -279,7 +270,7 @@ data_type load(const char* filename)
 		c++;
 	}
 
-	fclose(fp);
+	close(fp);
 	data_type tmp = *ptr;
 	free(ptr);
 	return tmp;
