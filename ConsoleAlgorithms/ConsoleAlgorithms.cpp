@@ -10,9 +10,42 @@
 
 #include "MultiColorLine.h"
 #include "laba_1.h"
+#include "laba_2.h"
 
 #define LABSCOUNT 2
 
+void MenuLab2()
+{
+    system("cls");
+    cout << "Цель работы.Освоить основы работы с базой данных в языке С++." << mcl::endl;
+    cout << "********************************************************" << mcl::endl;
+    
+    int select = 1;
+    while (!(GetAsyncKeyState(VK_SPACE) & 0x8000))
+    {
+        if (GetAsyncKeyState(VK_TAB) & 0x8000)
+        {
+            select++;
+            if (select > 1)
+                select = 1;
+            Sleep(70);
+        }
+        for (int l = 1; l <= 1; l++)
+        {
+            if (select == l)
+            {
+                cout(0, l + 15) << " >Task #" * select_color << l << mcl::endl;
+            }
+            else
+            {
+                cout(0, l + 15) << "task #" * data_color << l << "     " << mcl::endl;
+            }
+        }
+    }
+    system("cls");
+    Sleep(500);
+    l2task1();
+}
 
 void MenuLab1()
 {
@@ -105,6 +138,9 @@ void MainMenu()
     {
     case 1:
         MenuLab1();
+        break;
+    case 2:
+        MenuLab2();
         break;
     default:
         break;

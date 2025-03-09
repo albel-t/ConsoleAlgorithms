@@ -188,6 +188,7 @@ void l1task3()
 }
 void l1task4()
 {
+
 	{
 		srand(time(0));
 		data nums;
