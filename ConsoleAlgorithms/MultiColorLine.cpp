@@ -1,5 +1,12 @@
 
 #include "MultiColorLine.h"
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
+
+#include <windows.h>
+#include <cstdlib>
 
 void mcl::setConsoleColor(HANDLE hConsole, int textColor, int backgroundColor)
 {

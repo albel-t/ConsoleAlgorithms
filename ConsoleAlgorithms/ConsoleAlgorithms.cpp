@@ -8,7 +8,7 @@
 #include <windows.h>
 #include <cstdlib>
 
-#include "MultiColorLine.h"
+#include "filework.h"
 #include "laba_1.h"
 #include "laba_2.h"
 
