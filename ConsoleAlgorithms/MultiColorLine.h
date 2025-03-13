@@ -39,6 +39,7 @@ namespace mcl {
     {
         tab,
         endl,
+        space,
         nsep
     };
 

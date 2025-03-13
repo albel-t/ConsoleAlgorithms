@@ -72,7 +72,10 @@ void mcl::print::out(tag tag_)
         std::cout << "\t";
         break;
     case endl:
-        std::cout << "\n";
+        std::cout << std::endl;
+        break;
+    case space:
+        std::cout << " ";
         break;
     case nsep:
         break;
