@@ -100,7 +100,6 @@ void l2task1()
 			{
 				char letter = 0;
 				system("cls");
-				_flushall();
 				cout << "enter letter for find name: " * process_color << mcl::space;
 				std::cin >> letter;
 				int flag_find = 0;
