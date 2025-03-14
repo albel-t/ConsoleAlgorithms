@@ -17,10 +17,11 @@ FILE* open(const char* nameFile, const char* arg)
 
 bool readline(FILE* file, char* buff, buff_size size)
 {
-	cout << "Reading..." * process_color << mcl::endl;
+	cout << "Reading.. " * process_color << mcl::nsep;
 	if ((!feof(file)) && (fgets(buff, size, file) != NULL))
 	{
-		cout << "Successful reading." * success_color << mcl::endl;
+		char tmp[4] = { buff[0], buff[1], buff[2], '\0'};
+		cout << "\"" * process_color << tmp << "..\"\n\r" << "Successful reading" * success_color << mcl::endl;
 		return true;
 	}
 	else {
