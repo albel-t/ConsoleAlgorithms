@@ -83,7 +83,7 @@ void l1task4()
 	data input = load<data>("file41.test");
 	int nums1[18] = { 0 };
 	int i1 = 0;
-	cout << "Arr: " * data_color << mcl::endl;
+	cout << "Input: " * data_color << mcl::endl;
 	for (int i = 0; i < 18; i++)
 	{
 		cout << input.num[i] * data_color << "," << mcl::space;
@@ -103,23 +103,28 @@ void l1task4()
 }
 void l1task5()
 {
-	
+	cout << "#5. Дан типизированный файл, элементами которого являются отдельные слова.\r\n Найти количество слов, начинающихся на букву ‘м’ (кириллица)." * process_color << mcl::endl;
 	data_str nums;
 	save<data_str>("file51.test", &nums);
 	data_str input = load<data_str>("file51.test");
-
 	int count = 0;
+	cout << "Input: " * data_color << mcl::endl;
 	for (int i = 0; i < 5; i++)
 	{
+		cout << input.str[i] << mcl::endl;
+
 		if (input.str[i][0] == 'м')
 		{
 			count++;
 		}
 	}
+	cout << "Answer: " * data_color << mcl::endl;
 	cout << count << mcl::endl;
+	cout << "\n#5" * process_color << mcl::endl;
 }
 void l1task6()
 {
+	cout << "#6. Имеется типизированный файл, элементами которого являются целые числа.\r\nВсе четные числа этого файла записать во второй файл, а нечетные – в третий файл.\r\nПорядок следования чисел сохраняется." * process_color << mcl::endl;
 	{
 		srand(time(0));
 		data nums;
@@ -127,7 +132,6 @@ void l1task6()
 			nums.num[i] = rand() % 1000;
 		save("file61.test", &nums);
 	}
-
 	data input = load<data>("file61.test");
 	data file_1;
 	data file_2;
@@ -145,16 +149,26 @@ void l1task6()
 			i2++;
 		}
 	}
+	cout << "Input: " * data_color << mcl::endl;
+	for (int i = 0; i < 18; i++)
+	{
+		cout << input.num[i] << mcl::endl;
+	}
 	save("file62.test", &file_1);
 	save("file63.test", &file_2);
 
 	data input1 = load<data>("file62.test");
 	data input2 = load<data>("file63.test");
-
+	cout << "Answer: " * data_color << mcl::endl;
 	for (int i = 0; i < 18; i++)
 	{
-		cout << input1.num[i] << "|" << input2.num[i] << mcl::endl;
+		if(input1.num[i] != 0)
+			cout << input1.num[i] << mcl::space;
+		if (input2.num[i] != 0)
+			cout << "\t|" << input2.num[i] << mcl::nsep;
+		cout << mcl::endl;
 	}
 	cout << mcl::endl;
+	cout << "\n#6" * process_color << mcl::endl;
 }
 

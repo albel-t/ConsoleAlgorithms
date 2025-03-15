@@ -1,12 +1,6 @@
 
 #include "MultiColorLine.h"
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <vector>
 
-#include <windows.h>
-#include <cstdlib>
 
 void mcl::setConsoleColor(HANDLE hConsole, int textColor, int backgroundColor)
 {
@@ -126,7 +120,6 @@ mcl::print& mcl::operator << (print& out, int num) {
     out.add(letter(std::to_string(num), out.last_color));
     return out;
 }
-
 
 mcl::print cout;
 mcl::cmd_color error_color(4, 0);
