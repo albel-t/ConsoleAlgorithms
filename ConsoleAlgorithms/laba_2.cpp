@@ -17,13 +17,18 @@
 			break;
 	}
 }*/
-file_journal::file_journal(int seed) : name("name"), age("age"), login("login"), pass("pass"), booking("booking")
+file_journal::file_journal(int seed) : name("name"), second_name("s_name"), 
+age("age"), login("login"), pass("pass"), booking("booking"), term("term"), 
+size(LEN_PARAM)
 {
 	srand(seed);
+
 	const char* g = "aeoiuy";
-	const char* s = "bcdfghjklmnpqrstvwxyz";
+	const char* s = "bcdfghjklmnpqrstvwxz";
+	const char* l = "aeoiuybcdfghjklmnpqrstvwxyz";
 	const char* a = "aeoiuybcdfghjklmnpqrstvwxyz1234567890";
-	for (int i = 0; i < LEN_PARAM; i++)
+
+	for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < 6; j++)
 		{
@@ -31,7 +36,16 @@ file_journal::file_journal(int seed) : name("name"), age("age"), login("login"),
 				name.param[i][j] = g[rand() % (6 + (j > 3))];
 			else
 				name.param[i][j] = s[rand() % (21 + (j > 3))];
-
+			
+		}
+		for (int j = 0; j < 9; j++)
+		{
+			if (j % 3 == 0)
+				second_name.param[i][j] = g[rand() % (6 + (j > 3))];
+			else if (j % 3 == 1)
+				second_name.param[i][j] = l[rand() % (27 + (j > 3))];
+			else
+				second_name.param[i][j] = s[rand() % (21 + (j > 3))];
 		}
 		for (int j = 0; j < 9; j++)
 		{
@@ -42,22 +56,44 @@ file_journal::file_journal(int seed) : name("name"), age("age"), login("login"),
 			pass.param[i][j] = a[rand() % 37];
 		}
 		pass.param[i][6] = '\0';
+		second_name.param[i][9] = '\0';
 		name.param[i][6] = '\0';
 		login.param[i][9] = '\0';
 
 		booking.param[i] = rand() % 1000 + 100000;
 		age.param[i] = rand() % 40 + 18;
+		term.param[i] = rand() % 12 + 2;
 
 	}
 }
 
-void l2task1()
+
+void file_journal::PrintRow(int index, int& nstr, int padding = 0)
 {
+	cout(padding, nstr) << "[" * data_color << index+1 << "]" << mcl::space;
+
+	cout(5  + padding, nstr) << this->name.param[index] << mcl::tab;
+	cout(15 + padding, nstr) << this->second_name.param[index] << mcl::tab;
+	cout(30 + padding, nstr) << this->age.param[index] << mcl::tab;
+	cout(40 + padding, nstr) << this->login.param[index] << mcl::tab;
+	cout(50 + padding, nstr) << this->pass.param[index] << mcl::tab;
+	cout(60 + padding, nstr) << this->booking.param[index] << mcl::tab;
+	cout(70 + padding, nstr) << this->term.param[index] << mcl::endl;
+
+	nstr++;
+}
+
+void l2task1()
+{		
+	const int com = 5;
+	
+	const char* actions[com] = { "seed",  "name", "login", "booking", "add"};
 	while (!(GetAsyncKeyState(VK_SPACE) & 0x8000))
 	{
 		file_journal* FILE_t1 = new file_journal(0);
 		save<file_journal>("file2_1.txt", FILE_t1);
-		const char* actions[4] = { "seed",  "name", "login", "booking" };
+		file_journal file_ = load<file_journal>("file2_1.txt");
+
 		if (GetAsyncKeyState(VK_TAB) & 0x8000)
 		{
 			system("cls");
@@ -68,11 +104,11 @@ void l2task1()
 				if (GetAsyncKeyState(VK_TAB) & 0x8000)
 				{
 					select++;
-					if (select >= 4)
+					if (select >= com)
 						select = 0;
 					Sleep(90);
 				}
-				for (int l = 0; l < 4; l++)
+				for (int l = 0; l < com; l++)
 				{
 					if (select == l)
 					{
@@ -103,17 +139,13 @@ void l2task1()
 				cout << "enter letter for find name: " * process_color << mcl::space;
 				std::cin >> letter;
 				int flag_find = 0;
-				for (int i = 0; i < LEN_PARAM; i++)
+				for (int i = 0, n = 3; i < FILE_t1->size; i++)
 				{
 					if (FILE_t1->name.param[i][0] == letter)
 					{
 						flag_find ++;
-						cout << "sucsess: " * success_color << mcl::tab;
-						cout << FILE_t1->name.param[i] * data_color << mcl::tab;
-						cout << FILE_t1->age.param[i] << mcl::tab;
-						cout << FILE_t1->login.param[i] << mcl::tab;
-						cout << FILE_t1->pass.param[i] << mcl::tab;
-						cout << FILE_t1->booking.param[i] << mcl::endl;
+						cout(0, n) << "sucsess: " * success_color << mcl::tab;
+						FILE_t1->PrintRow(i, n, 10);
 					}
 				}
 				if (!flag_find)
@@ -131,17 +163,13 @@ void l2task1()
 				cout << "enter letter for find ligin: " * process_color << mcl::space;
 				std::cin >> letter;
 				int flag_find = 0;
-				for (int i = 0; i < LEN_PARAM; i++)
+				for (int i = 0, n = 3; i < FILE_t1->size; i++)
 				{
 					if (FILE_t1->login.param[i][0] == letter)
 					{
 						flag_find++;
-						cout << "sucsess: " * success_color << mcl::tab;
-						cout << FILE_t1->name.param[i] * data_color << mcl::tab;
-						cout << FILE_t1->age.param[i] << mcl::tab;
-						cout << FILE_t1->login.param[i] << mcl::tab;
-						cout << FILE_t1->pass.param[i] << mcl::tab;
-						cout << FILE_t1->booking.param[i] << mcl::endl;
+						cout(0, n) << "sucsess: " * success_color << mcl::tab;
+						FILE_t1->PrintRow(i, n, 10);
 					}
 				}
 				if (!flag_find)
@@ -159,17 +187,13 @@ void l2task1()
 				cout << "enter num for watching new booking: " * process_color << mcl::space;
 				std::cin >> count;
 				int flag_find = 0;
-				for (int i = 0; i < LEN_PARAM; i++)
+				for (int i = 0, n = 3; i < FILE_t1->size; i++)
 				{
 					if (FILE_t1->booking.param[i] >= count)
 					{
 						flag_find++;
-						cout << "sucsess: " * success_color << mcl::tab;
-						cout << FILE_t1->name.param[i] * data_color << mcl::tab;
-						cout << FILE_t1->age.param[i] << mcl::tab;
-						cout << FILE_t1->login.param[i] << mcl::tab;
-						cout << FILE_t1->pass.param[i] << mcl::tab;
-						cout << FILE_t1->booking.param[i] << mcl::endl;
+						cout(0, n) << "sucsess: " * success_color << mcl::tab;
+						FILE_t1->PrintRow(i, n, 10);
 					}
 				}
 				if (!flag_find)
@@ -180,28 +204,72 @@ void l2task1()
 				Sleep(300);
 			}
 			break;
+			case 4:
+			{
+				system("cls");
+				{
+					cout << "enter name: " * process_color << mcl::space;
+					char param[7] = { 0 };
+					std::cin >> param;
+					FILE_t1->name.param.add();
+					FILE_t1->name.param[FILE_t1->size] = param;
+				} /* {
+					cout << "enter second name: " * process_color << mcl::space;
+					char param[10] = { 0 };
+					std::cin >> param;
+					FILE_t1->second_name.param.add(param);
+				} {
+					cout << "enter age: " * process_color << mcl::space;
+					int param = { 0 };
+					std::cin >> param;
+					FILE_t1->age.param.add(param);
+				} {
+					cout << "enter login: " * process_color << mcl::space;
+					char param[10] = { 0 };
+					std::cin >> param;
+					FILE_t1->login.param.add(param);
+				} {
+					cout << "enter pass: " * process_color << mcl::space;
+					char param[7] = { 0 };
+					std::cin >> param;
+					FILE_t1->pass.param.add(param);
+				} {
+					cout << "enter booking: " * process_color << mcl::space;
+					int param = { 0 };
+					std::cin >> param;
+					FILE_t1->booking.param.add(param);
+				} {
+					cout << "enter term: " * process_color << mcl::space;
+					int param = { 0 };
+					std::cin >> param;
+					FILE_t1->term.param.add(param);
+				}*/
+				FILE_t1->size++;
+				cout << "add element:" * process_color << mcl::space;
+				int n = 15;
+				FILE_t1->PrintRow(FILE_t1->size++, n);
+				_getch();
+				Sleep(300);
+			}
+			break;
 			default:
 				break;
 			}
 			system("cls");
 		}
-		file_journal file_ = load<file_journal>("file2_1.txt");
 
 
-		cout(0, 6) << file_.name.name * process_color << mcl::tab;
-		cout(13, 6) << file_.age.name << mcl::tab;
-		cout(17, 6) << file_.login.name << mcl::tab;
-		cout(30, 6) << file_.pass.name << mcl::tab;
-		cout(40, 6) << file_.booking.name << mcl::endl;
+		cout(5, 6) << file_.name.name * process_color << mcl::tab;
+		cout(15, 6) << file_.second_name.name * process_color << mcl::tab;
+		cout(30, 6) << file_.age.name << mcl::tab;
+		cout(40, 6) << file_.login.name << mcl::tab;
+		cout(50, 6) << file_.pass.name << mcl::tab;
+		cout(60, 6) << file_.booking.name << mcl::endl;
+		cout(70, 6) << file_.term.name << mcl::endl;
 
-		for (int i = 0; i < LEN_PARAM; i++)
+		for (int i = 0, n = 7; i < FILE_t1->size; i++)
 		{
-
-			cout(0, 7 + i) << file_.name.param[i] * data_color << mcl::tab;
-			cout(13, 7 + i) << file_.age.param[i] << mcl::tab;
-			cout(17, 7 + i) << file_.login.param[i] << mcl::tab;
-			cout(30, 7 + i) << file_.pass.param[i] << mcl::tab;
-			cout(40, 7 + i) << file_.booking.param[i] << mcl::endl;
+			FILE_t1->PrintRow(i, n);
 		}
 	}
 
