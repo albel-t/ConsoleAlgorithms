@@ -211,8 +211,15 @@ void l2task1()
 					cout << "enter name: " * process_color << mcl::space;
 					char param[7] = { 0 };
 					std::cin >> param;
+					cout << param;
 					FILE_t1->name.param.add();
-					FILE_t1->name.param[FILE_t1->size] = param;
+					for (int i = 0; i < 7; i++)
+					{
+						FILE_t1->name.param[FILE_t1->size][i] = param[i];
+						if (param[i] == '\0')
+							break;
+					}
+					//FILE_t1->name.param[FILE_t1->size][6] = '\0'
 				} /* {
 					cout << "enter second name: " * process_color << mcl::space;
 					char param[10] = { 0 };

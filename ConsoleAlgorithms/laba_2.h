@@ -40,11 +40,14 @@ struct items
 		for (int i = 0; i < (size)-1; i++)
 		{
 			tmp[i] = d[i];
-		}
+		}		
+		//tmp[(size)-1] = { 0 };
+
 		/*(*this)[(size) - 1] = newitem;*/
 		delete [] d;
 		d = tmp;
 	}
+
 	item<param_type>* d;
 	int size;
 
