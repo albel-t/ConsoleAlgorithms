@@ -87,11 +87,13 @@ void l2task1()
 {		
 	const int com = 5;
 	
-	const char* actions[com] = { "seed",  "name", "login", "booking", "add"};
+	const char* actions[com] = { "seed",  "name", "login", "booking", "add"};		
+	file_journal* FILE_t1 = new file_journal(0);
+
 	while (!(GetAsyncKeyState(VK_SPACE) & 0x8000))
-	{
-		file_journal* FILE_t1 = new file_journal(0);
+	{		
 		save<file_journal>("file2_1.txt", FILE_t1);
+
 		file_journal file_ = load<file_journal>("file2_1.txt");
 
 		if (GetAsyncKeyState(VK_TAB) & 0x8000)
@@ -209,52 +211,54 @@ void l2task1()
 				system("cls");
 				{
 					cout << "enter name: " * process_color << mcl::space;
-					char param[7] = { 0 };
-					std::cin >> param;
-					cout << param;
-					FILE_t1->name.param.add();
-					for (int i = 0; i < 7; i++)
-					{
-						FILE_t1->name.param[FILE_t1->size][i] = param[i];
-						if (param[i] == '\0')
-							break;
-					}
+					item<char[7]> param = { 0 };
+					std::cin >> param.i;
+					//cout << param.i;
+					FILE_t1->name.param.add(param);
+					//FILE_t1->name.param[FILE_t1->size] = param;
+
+					//for (int i = 0; i < 7; i++)
+					//{
+					//	FILE_t1->name.param[FILE_t1->size][i] = param[i];
+					//	if (param[i] == '\0')
+					//		break;
+					//}
 					//FILE_t1->name.param[FILE_t1->size][6] = '\0'
-				} /* {
+				} {
 					cout << "enter second name: " * process_color << mcl::space;
-					char param[10] = { 0 };
-					std::cin >> param;
+					item<char[10]> param = { 0 };
+					std::cin >> param.i;
 					FILE_t1->second_name.param.add(param);
 				} {
 					cout << "enter age: " * process_color << mcl::space;
-					int param = { 0 };
-					std::cin >> param;
+					item<int> param = { 0 };
+					std::cin >> param.i;
 					FILE_t1->age.param.add(param);
 				} {
 					cout << "enter login: " * process_color << mcl::space;
-					char param[10] = { 0 };
-					std::cin >> param;
+					item<char[10]> param = { 0 };
+					std::cin >> param.i;
 					FILE_t1->login.param.add(param);
 				} {
 					cout << "enter pass: " * process_color << mcl::space;
-					char param[7] = { 0 };
-					std::cin >> param;
+					item<char[7]> param = { 0 };
+					std::cin >> param.i;
 					FILE_t1->pass.param.add(param);
 				} {
 					cout << "enter booking: " * process_color << mcl::space;
-					int param = { 0 };
-					std::cin >> param;
+					item<int> param = { 0 };
+					std::cin >> param.i;
 					FILE_t1->booking.param.add(param);
 				} {
 					cout << "enter term: " * process_color << mcl::space;
-					int param = { 0 };
-					std::cin >> param;
+					item<int> param = { 0 };
+					std::cin >> param.i;
 					FILE_t1->term.param.add(param);
-				}*/
+				}
 				FILE_t1->size++;
 				cout << "add element:" * process_color << mcl::space;
 				int n = 15;
-				FILE_t1->PrintRow(FILE_t1->size++, n);
+				FILE_t1->PrintRow(FILE_t1->size, n);
 				_getch();
 				Sleep(300);
 			}
@@ -266,13 +270,13 @@ void l2task1()
 		}
 
 
-		cout(5, 6) << file_.name.name * process_color << mcl::tab;
-		cout(15, 6) << file_.second_name.name * process_color << mcl::tab;
-		cout(30, 6) << file_.age.name << mcl::tab;
-		cout(40, 6) << file_.login.name << mcl::tab;
-		cout(50, 6) << file_.pass.name << mcl::tab;
-		cout(60, 6) << file_.booking.name << mcl::endl;
-		cout(70, 6) << file_.term.name << mcl::endl;
+		cout(5, 6)  << FILE_t1->name.name * process_color << mcl::tab;
+		cout(15, 6) << FILE_t1->second_name.name * process_color << mcl::tab;
+		cout(30, 6) << FILE_t1->age.name << mcl::tab;
+		cout(40, 6) << FILE_t1->login.name << mcl::tab;
+		cout(50, 6) << FILE_t1->pass.name << mcl::tab;
+		cout(60, 6) << FILE_t1->booking.name << mcl::endl;
+		cout(70, 6) << FILE_t1->term.name << mcl::endl;
 
 		for (int i = 0, n = 7; i < FILE_t1->size; i++)
 		{

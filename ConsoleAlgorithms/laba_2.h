@@ -16,8 +16,8 @@ template<typename param_type>
 struct item {
 	//item(param_type i) : i{ i }
 	//{	}
-	item() : i{ 0 }
-	{	}
+	//item() : i{ 0 }
+	//{	}
 	param_type i;
 };
 
@@ -33,10 +33,14 @@ struct items
 	{
 		return d[index].i;
 	}
-	void add(/*param_type newitem*/)
-	{
+	void add(item<param_type> newitem)
+	{		
 		item<param_type>* tmp;
-		tmp = new item<param_type>[++(size)]();
+		size++; 
+		tmp = new item<param_type>[(size)]();
+
+		tmp[size-1] = newitem;
+
 		for (int i = 0; i < (size)-1; i++)
 		{
 			tmp[i] = d[i];
