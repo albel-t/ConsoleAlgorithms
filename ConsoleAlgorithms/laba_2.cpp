@@ -130,7 +130,8 @@ void l2task1()
 				system("cls");
 				cout << "enter seed: " << mcl::space;
 				std::cin >> seed;
-				file_journal* FILE_t1 = new file_journal(seed);
+				delete FILE_t1;
+				FILE_t1 = new file_journal(seed);
 				save<file_journal>("file2_1.txt", FILE_t1);
 				break;
 			}
@@ -258,7 +259,7 @@ void l2task1()
 				FILE_t1->size++;
 				cout << "add element:" * process_color << mcl::space;
 				int n = 15;
-				FILE_t1->PrintRow(FILE_t1->size, n);
+				FILE_t1->PrintRow((FILE_t1->size)-1, n);
 				_getch();
 				Sleep(300);
 			}
