@@ -11,8 +11,11 @@
 #include "filework.h"
 #include "laba_1.h"
 #include "laba_2.h"
+#include "laba_3.h"
 
 #define LABSCOUNT 2
+
+#define TEST_MODE
 
 void MenuLab2()
 {
@@ -147,15 +150,28 @@ void MainMenu()
     }
 }
 
+int new_booking::last_id = 0;
+int person::last_id = 0;
+
 int main()
 {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
+
+#ifdef TEST_MODE
+
+    l3task1();
+
+#endif
+
+#ifndef TEST_MODE
+
+
     MainMenu();
 
 
-
+#endif
 
     /*
     cout(10, 10) << "hello world" * color_1 << mcl::endl;
