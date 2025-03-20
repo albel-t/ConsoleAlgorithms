@@ -84,7 +84,7 @@ struct file_journal
 	column<int> term;
 
 	void PrintRow(int index, int& nstr, int padding);
-
+	void PrintName(int index, int& nstr, int padding);
 	file_journal(int seed);
 
 	int size;

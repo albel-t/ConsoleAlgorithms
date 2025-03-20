@@ -70,7 +70,7 @@ size(LEN_PARAM)
 
 void file_journal::PrintRow(int index, int& nstr, int padding = 0)
 {
-	cout(padding, nstr) << "[" * data_color << index+1 << "]" << mcl::space;
+	cout(padding, nstr) << "[" * data_color << index + 1 << "]" << mcl::space;
 
 	cout(5  + padding, nstr) << this->name.param[index] << mcl::tab;
 	cout(15 + padding, nstr) << this->second_name.param[index] << mcl::tab;
@@ -82,19 +82,33 @@ void file_journal::PrintRow(int index, int& nstr, int padding = 0)
 
 	nstr++;
 }
+void file_journal::PrintName(int index, int& nstr, int padding = 0)
+{
+	cout(5  + padding, nstr) << this->name.name * process_color << mcl::tab;
+	cout(15 + padding, nstr) << this->second_name.name << mcl::tab;
+	cout(30 + padding, nstr) << this->age.name << mcl::tab;
+	cout(40 + padding, nstr) << this->login.name << mcl::tab;
+	cout(50 + padding, nstr) << this->pass.name << mcl::tab;
+	cout(60 + padding, nstr) << this->booking.name << mcl::endl;
+	cout(70 + padding, nstr) << this->term.name << mcl::endl;
+
+	nstr++;
+}
+
 
 void l2task1()
 {		
-	const int com = 5;
+	const int com = 7;
 	
-	const char* actions[com] = { "seed",  "name", "login", "booking", "add"};		
+	const char* actions[com] = { "Set seed",  "Find for name", "Find for login", "Check booking", "Add new element", "Read from file", "Write to file"};
 	file_journal* FILE_t1 = new file_journal(0);
+
+	save<file_journal>("file2_1.txt", FILE_t1);
+	*FILE_t1 = load<file_journal>("file2_1.txt");
 
 	while (!(GetAsyncKeyState(VK_SPACE) & 0x8000))
 	{		
-		save<file_journal>("file2_1.txt", FILE_t1);
-
-		file_journal file_ = load<file_journal>("file2_1.txt");
+		
 
 		if (GetAsyncKeyState(VK_TAB) & 0x8000)
 		{
@@ -128,11 +142,12 @@ void l2task1()
 			{
 				int seed = 0;
 				system("cls");
-				cout << "enter seed: " << mcl::space;
+				cout << "enter seed: " * process_color << mcl::space;
 				std::cin >> seed;
 				delete FILE_t1;
 				FILE_t1 = new file_journal(seed);
 				save<file_journal>("file2_1.txt", FILE_t1);
+				cout << "set seed: " * process_color << seed << mcl::endl;
 				break;
 			}
 			case 1:
@@ -155,8 +170,7 @@ void l2task1()
 				{
 					cout << "nothing was find " * error_color << mcl::endl;
 				}
-				_getch();
-				Sleep(300);
+
 			}
 				break;
 			case 2:
@@ -179,8 +193,7 @@ void l2task1()
 				{
 					cout << "nothing was find" * error_color << mcl::endl;
 				}
-				_getch();
-				Sleep(300);
+
 			}
 			break;
 			case 3:
@@ -203,8 +216,7 @@ void l2task1()
 				{
 					cout << "nothing was find" * error_color << mcl::endl;
 				}
-				_getch();
-				Sleep(300);
+
 			}
 			break;
 			case 4:
@@ -214,17 +226,7 @@ void l2task1()
 					cout << "enter name: " * process_color << mcl::space;
 					item<char[7]> param = { 0 };
 					std::cin >> param.i;
-					//cout << param.i;
 					FILE_t1->name.param.add(param);
-					//FILE_t1->name.param[FILE_t1->size] = param;
-
-					//for (int i = 0; i < 7; i++)
-					//{
-					//	FILE_t1->name.param[FILE_t1->size][i] = param[i];
-					//	if (param[i] == '\0')
-					//		break;
-					//}
-					//FILE_t1->name.param[FILE_t1->size][6] = '\0'
 				} {
 					cout << "enter second name: " * process_color << mcl::space;
 					item<char[10]> param = { 0 };
@@ -260,19 +262,33 @@ void l2task1()
 				cout << "add element:" * process_color << mcl::space;
 				int n = 15;
 				FILE_t1->PrintRow((FILE_t1->size)-1, n);
-				_getch();
-				Sleep(300);
+
+			}
+			break;
+			case 5:
+			{
+				system("cls");
+				*FILE_t1 = load<file_journal>("file2_1.txt");
+			}
+			break;
+			case 6:
+			{
+				system("cls");
+				save<file_journal>("file2_1.txt", FILE_t1);
 			}
 			break;
 			default:
 				break;
 			}
+			cout << "\t\tpress any key to continue..." * process_color << mcl::space;
+			_getch();
+			Sleep(300);
 			system("cls");
 		}
 
 
 		cout(5, 6)  << FILE_t1->name.name * process_color << mcl::tab;
-		cout(15, 6) << FILE_t1->second_name.name * process_color << mcl::tab;
+		cout(15, 6) << FILE_t1->second_name.name << mcl::tab;
 		cout(30, 6) << FILE_t1->age.name << mcl::tab;
 		cout(40, 6) << FILE_t1->login.name << mcl::tab;
 		cout(50, 6) << FILE_t1->pass.name << mcl::tab;
