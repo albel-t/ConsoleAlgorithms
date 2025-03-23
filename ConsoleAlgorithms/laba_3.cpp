@@ -428,24 +428,6 @@ void l3task1()
 			system("cls");
 		}
 	}
-	person p1("name", "second name", "login", "pass");
-	p1.editProfile();
-	cout << "========" << mcl::endl;
-	p1.print();
-	p1.makeBooking(12);
-	p1.makeBooking(9);
-	p1.makeBooking(2);
-	p1.makeBooking(8);
-	p1.makeBooking(6);
-	cout << "========" << mcl::endl;
-	p1.print();
-	cout << "========" << mcl::endl;
-	char a[4] = "123";
-	char b[5] = "pass";
-	p1.newPass(a, b);
-	p1.print();
-
-
  }
 
 
