@@ -6,20 +6,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <cstdlib>
+#include <conio.h>
 
 #include "MultiColorLine.h"
-
 
 
 struct new_booking
 {
 	new_booking(int term) : term(term)
 	{
-		last_id += rand() % 100+ last_id;
+		last_id += rand() % 10;
 		id = last_id;
-		data = last_id % 1000;
+		//data = last_id % 1000 + rand() % 100;
 	}
-	int id, term, data;
+	
+	
+	struct data 
+	{
+		data()
+		{
+			YYYY = 2000 + rand() % 30;
+			MM = rand() % 12 + 1;
+			DD = rand() % 31 + 1;
+		}
+		int YYYY, MM, DD;
+
+	};
+	data data;
+	int id, term;
 	static int last_id;
 };
 
@@ -33,12 +48,20 @@ public:
 	void print();
 
 	void makeBooking(int term);
-	void newPass( char* _newPass);
+	bool newPass(char* _newPass, char* _check);
+	void bithday();
+	bool clearBooking(char* _pass);
+
+	char* myName();
+	char* myPass();
+
 
 	~person();
 
 private:
 	//friend bool writeToHeap(const char* from, char*& to);
+	void setPass(char* _newPass);
+
 	static int last_id;
 
 	char* name, * second_name;
@@ -53,6 +76,8 @@ private:
 
 
 };
+
+//bool equality(char* str1, char* str2);
 
 
 //extern int new_booking::last_id = 0;
