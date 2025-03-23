@@ -202,7 +202,7 @@ person::~person()
 	clearBooking(pass);
 }
 
-void actionsWithPerson(person* pers)
+void actionsWithPerson(person*& pers)
 {
 	bool out = true;
 	const int com = 8;
@@ -316,12 +316,11 @@ void actionsWithPerson(person* pers)
 				std::cin.ignore();
 				pers->print();
 				Sleep(1000);
-				int x = _getch();
 				break;
 			}
 			case 6:
-				
 				pers->~person();
+				pers = nullptr;
 				break;
 			case 7:
 				out = false;
