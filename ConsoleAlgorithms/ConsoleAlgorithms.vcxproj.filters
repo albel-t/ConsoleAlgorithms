@@ -58,5 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="file41.test" />
+    <None Include="help_template.py" />
   </ItemGroup>
 </Project>

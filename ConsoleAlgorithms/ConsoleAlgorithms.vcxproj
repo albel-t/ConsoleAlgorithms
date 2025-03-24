@@ -148,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="file41.test" />
+    <None Include="help_template.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
