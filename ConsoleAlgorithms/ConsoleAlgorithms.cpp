@@ -16,10 +16,11 @@
 #include "laba_1.h"
 #include "laba_2.h"
 #include "laba_3.h"
+#include "laba_4.h"
 
 #define LABSCOUNT 3
 
-//#define TEST_MODE
+#define TEST_MODE
 
 void MenuLab3()
 {
@@ -216,7 +217,7 @@ int main()
 
 #ifdef TEST_MODE
 
-    l3task1();
+    l4task1();
 
 #endif
 

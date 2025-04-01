@@ -132,10 +132,12 @@
     <ClCompile Include="laba_1.cpp" />
     <ClCompile Include="laba_2.cpp" />
     <ClCompile Include="laba_3.cpp" />
+    <ClCompile Include="laba_4.cpp" />
     <ClCompile Include="MultiColorLine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="filework.h" />
+    <ClInclude Include="laba_4.h" />
     <ClInclude Include="laba_1.h" />
     <ClInclude Include="laba_2.h" />
     <ClInclude Include="laba_3.h" />
