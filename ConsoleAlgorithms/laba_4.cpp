@@ -13,19 +13,30 @@ void l4task1()
 {
 
 	list<booking_type> list_(new leaf<booking_type>({0, 0, 0, 0, 0, 0}));
-	
+	list_.pushBack(booking_type{ 1, 2, 3, 4, 5, 6 });
 	actionsWithlist(list_);
 
 
 
 }
+template<typename data_list_type>
+void addiction(std::pair<const char* ,int> param_a, std::pair<const char*, int> param_b, list<data_list_type>& list_with_params)
+{
+	list_with_params.print();
+	for (list_with_params.reset(); !(list_with_params.end()); list_with_params.next())
+	{
+		int* ptr = reinterpret_cast<int*>(reinterpret_cast<char*>(list_with_params.current()) + list_with_params.current()->padding());
+		std::cout << param_a.first << " = " << *(ptr + param_a.second) << std::endl;
+		std::cout << param_b.first << " = " << *(ptr + param_b.second) << std::endl;
+	}
 
+}
 
 void actionsWithlist(list<booking_type> list_)
 {
 	bool out = true;
 	const int com = 10;
-	const char* actions[com] = { "id_booking",  "term", "type", "stars", "data", "person count", "prinrt", "[-] delete", "[+] add", "<- Exit" };
+	const char* actions[com] = { "id_booking",  "term", "type", "stars", "data", "person count", "print", "[-] delete", "[+] add", "<- Exit" };
 	Sleep(500);
 
 	while ((!(GetAsyncKeyState(VK_SPACE) & 0x8000)) && out)
@@ -59,7 +70,9 @@ void actionsWithlist(list<booking_type> list_)
 			{
 			case 0:
 			{
-
+				char i;
+				addiction(std::make_pair(actions[select], select), std::make_pair(actions[select+1], select+1), list_);
+				std::cin >> i;
 			}
 			case 1:
 			{

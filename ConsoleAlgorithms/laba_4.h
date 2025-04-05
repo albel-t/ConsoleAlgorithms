@@ -17,17 +17,20 @@ template<typename data_list_type>
 class list;
 
 class booking_type{
-public:
+public:	
+	int id_booking, term, type, stars, data, person_count;
+
 	std::string print()
 	{
-		std::cout << id_booking << "|"
-			<< term << "|"
-			<< type << "|"
-			<< stars << "|"
-			<< data << "|"
-			<< person_count << std::endl;
+		std::string tmp = std::to_string(id_booking) + "|"
+			+ std::to_string(term			) + "|"
+			+ std::to_string(type			) + "|"
+			+ std::to_string(stars			) + "|"
+			+ std::to_string(data			) + "|"
+			+ std::to_string(person_count   ) + "\n";
+		return tmp;
 	}
-	int id_booking, term, type, stars, data, person_count;
+
 };
 
 enum params {
@@ -37,22 +40,26 @@ enum params {
 template<typename data_list_type>
 struct leaf {
 
-	leaf(data_list_type new_data)
+	leaf(data_list_type new_data) : data(new_data)
 	{
 		next = nullptr;
 		prev = nullptr;
-		data = new data_list_type(new_data);
+		//data = data_list_type(new_data);
 	}
 	leaf()
 	{
 		if(next != nullptr)
 		delete next;
 	}
+	int padding()
+	{
+		return (int(this) - int(&data));
+	}
 private:
-
+	data_list_type data;
 	leaf* next;
 	leaf* prev;
-	data_list_type* data;
+	
 
 	leaf* after(leaf* after)
 	{
@@ -66,11 +73,11 @@ private:
 		next = before;
 		return tmp;
 	}
-	data_list_type print()
+	std::string print()
 	{
-		return data->print();
+		return data.print();
 	}
-
+	
 
 	template<typename data_list_type>
 	friend class  list;
@@ -79,14 +86,25 @@ private:
 template<typename data_list_type>
 class list {
 	leaf<data_list_type>* start_;
+	leaf<data_list_type>* current_;
 
 public:
 	 list(leaf<data_list_type>* start) : start_(start)
-	 {	}
-	leaf<data_list_type>*& start() {
-		return start_;
-	}
-
+	 {
+		 current_ = start_->next;
+	 }
+	 leaf<data_list_type>* start() {
+		 return start_;
+	 }
+	 leaf<data_list_type>*& current() {
+		 return current_;
+	 }
+	 bool end() {
+		 return current_ == nullptr;
+	 }
+	 void reset() {
+		 current_ = start_->next;
+	 }
 	void pushBack(data_list_type data_leaf)
 	{
 		//leaf<data_list_type>* new_leaf = new leaf<data_list_type>(data_leaf);
@@ -163,6 +181,12 @@ public:
 	{
 
 	}
+	leaf<data_list_type>* next()
+	{
+		current_ = current_->next;
+		return current_;
+	}
+
 
 };
 
