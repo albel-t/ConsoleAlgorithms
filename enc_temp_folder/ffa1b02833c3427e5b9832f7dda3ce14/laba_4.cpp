@@ -35,10 +35,8 @@ void addiction(std::pair<const char* ,int> param_a, std::pair<const char*, int> 
 void actionsWithlist(list<booking_type> list_)
 {
 	bool out = true;
-	const int com = 11;
-	const char* actions[com] = { "show addiction", "id_booking",  "term", "type", "stars", "data", "person count", "print", "[-] delete", "[+] add", "<- Exit" };
-	int select_a = 0, select_b = 0;
-	
+	const int com = 10;
+	const char* actions[com] = { "id_booking",  "term", "type", "stars", "data", "person count", "print", "[-] delete", "[+] add", "<- Exit" };
 	Sleep(500);
 
 	while ((!(GetAsyncKeyState(VK_SPACE) & 0x8000)) && out)
@@ -49,9 +47,6 @@ void actionsWithlist(list<booking_type> list_)
 			while ((!(GetAsyncKeyState(VK_SPACE) & 0x8000)) && out)
 			{
 				cout(0, 2) << "Select action: " * process_color << mcl::endl;
-				cout(0, 2) << "select_a = " * process_color << select_a ? actions[select_a] : "---" <<
-							"; select_b = " * process_color << select_b ? actions[select_b] : "---" << mcl::endl;
-
 				if (GetAsyncKeyState(VK_TAB) & 0x8000)
 				{
 					select++;
@@ -76,6 +71,7 @@ void actionsWithlist(list<booking_type> list_)
 			case 0:
 			{
 				char i;
+				addiction(std::make_pair(actions[select], select), std::make_pair(actions[select+1], select+1), list_);
 				std::cin >> i;
 			}
 			case 1:
@@ -96,7 +92,6 @@ void actionsWithlist(list<booking_type> list_)
 			}
 			case 5:
 			{
-				addiction(std::make_pair(actions[select], select), std::make_pair(actions[select + 1], select + 1), list_);
 
 			}break;			
 			case 6://print
