@@ -48,13 +48,18 @@ struct leaf {
 	}
 	leaf()
 	{
-		if(next != nullptr)
-		delete next;
+		// if(next != nullptr)
+		// delete next;
 	}
 	int padding()
 	{
 		return (int(this) - int(&data));
 	}
+	std::string print()
+	{
+		return data.print();
+	}
+	
 private:
 	data_list_type data;
 	leaf* next;
@@ -73,14 +78,10 @@ private:
 		next = before;
 		return tmp;
 	}
-	std::string print()
-	{
-		return data.print();
-	}
-	
+
 
 	template<typename data_list_type>
-	friend class  list;
+	friend class list;
 };
 
 template<typename data_list_type>
@@ -127,18 +128,23 @@ public:
 			new_leaf->after(push_after);
 	}
 
-	void print()
+	void print(bool select = false)
 	{
 		leaf<data_list_type>* _leaf = start_;
 
-		std::cout << _leaf->print() << std::endl;
+		//std::cout << _leaf->print() << std::endl;
 
 		while (_leaf->next != nullptr) 
-		{
+		{			
 			_leaf = _leaf->next;
-			std::cout << _leaf->print() << std::endl;
+
+			if((select) && (_leaf == current()))
+				cout << _leaf->print() * select_color << mcl::endl;
+			else
+				cout << _leaf->print() * data_color << mcl::endl;
+			
 		}
-		print_usd(_leaf);
+		//print_usd(_leaf);
 	}
 
 	void print_usd(leaf<data_list_type>* _leaf)
@@ -161,14 +167,17 @@ public:
 		{
 			pop_after->before(next_leaf);
 			next_leaf->after(pop_after);
-		}
-		else {
+		} else {
 			pop_after->next = next_leaf;
 			//next_leaf->prev = pop_after;
 		}
+		reset();
 		return next_pop_leaf;
 	}
-
+	leaf<data_list_type>* popThis(leaf<data_list_type>* pop_after)
+	{
+		return popPtr(pop_after->prev);
+	}
 	leaf<data_list_type>* popBack()
 	{
 		leaf<data_list_type>* _leaf = start_;
@@ -183,7 +192,14 @@ public:
 	}
 	leaf<data_list_type>* next()
 	{
+		if(current_->next)
 		current_ = current_->next;
+		return current_;
+	}
+	leaf<data_list_type>* previous()
+	{
+		if (current_->prev->prev)
+		current_ = current_->prev;
 		return current_;
 	}
 
@@ -201,7 +217,7 @@ void actionsWithlist(list<booking_type> list_);
 void l4task1();
 
 
-
+void push_A_B(int data, int& a, int& b);
 
 
 
