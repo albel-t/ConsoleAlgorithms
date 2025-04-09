@@ -91,7 +91,7 @@ void actionsWithlist(list<booking_type> list_)
 			{
 				char i;
 				addiction(std::make_pair(actions[select_a], select_a), std::make_pair(actions[select_b], select_b), list_);
-				std::cin >> i;
+				std::cin >> i;//костыль
 				select_a = 0;
 				 select_b = 0;
 			}
@@ -106,7 +106,9 @@ void actionsWithlist(list<booking_type> list_)
 			}break;			
 			case 7://print
 			{
+				char i;
 				list_.print();
+				std::cin >> i;//костыль
 			}break;
 			case 8://del
 			{
@@ -164,6 +166,7 @@ void actionsWithlist(list<booking_type> list_)
 			case 9://add
 			{
 				int id_booking, term, type, stars, data, person_count;
+				cout << "enter data with spaces: id_booking, term, type, stars, data, person_count." << mcl::endl;
 				std::cin >> id_booking
 					>> term
 					>> type

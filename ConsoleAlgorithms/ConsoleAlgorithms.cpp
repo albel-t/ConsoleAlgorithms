@@ -17,10 +17,49 @@
 #include "laba_3.h"
 #include "laba_4.h"
 
-#define LABSCOUNT 3
+#define LABSCOUNT 4
 
-#define TEST_MODE
+//#define TEST_MODE
 
+void MenuLab4()
+{
+    system("cls");
+    cout << "Цель работы. Освоить основы работы со связными списками в языке С++." << mcl::endl;
+    cout << "********************************************************" << mcl::endl;
+
+    int select = 1;
+    while (!(GetAsyncKeyState(VK_SPACE) & 0x8000))
+    {
+        if (GetAsyncKeyState(VK_TAB) & 0x8000)
+        {
+            select++;
+            if (select > 1)
+                select = 1;
+            Sleep(70);
+        }
+        for (int l = 1; l <= 1; l++)
+        {
+            if (select == l)
+            {
+                cout(0, l + 5) << " >Task #" * select_color << l << mcl::endl;
+            }
+            else {
+                cout(0, l + 5) << "task #" * data_color << l << "     " << mcl::endl;
+            }
+        }
+    }
+    switch (select)
+    {
+    case 1:
+        system("cls");
+        Sleep(500);
+        l4task1();
+        break;
+    default:
+        break;
+    }
+
+}
 void MenuLab3()
 {
     system("cls");
@@ -198,6 +237,9 @@ void MainMenu()
         break;
     case 3:
         MenuLab3();
+        break;
+    case 4:
+        MenuLab4();
         break;
     default:
         cout(0, LABSCOUNT + 5) << "Wrong select" * error_color << mcl::endl;
