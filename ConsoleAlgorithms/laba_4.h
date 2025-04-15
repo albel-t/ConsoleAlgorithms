@@ -11,14 +11,17 @@
 #include <cstdlib>
 #include <conio.h>
 
+#include <algorithm>
+#include <vector>
+
 #include "MultiColorLine.h"
 
 template<typename data_list_type>
 class list;
-
+//id_booking, term, type, stars, data, person_count
 class booking_type{
 public:	
-	int id_booking, term, type, stars, data, person_count;
+	int id_booking, term, type, stars, date, person_count;
 
 	std::string print()
 	{
@@ -26,7 +29,7 @@ public:
 			+ std::to_string(term			) + "|"
 			+ std::to_string(type			) + "|"
 			+ std::to_string(stars			) + "|"
-			+ std::to_string(data			) + "|"
+			+ std::to_string(date			) + "|"
 			+ std::to_string(person_count   ) + "\n";
 		return tmp;
 	}
@@ -59,9 +62,10 @@ struct leaf {
 	{
 		return data.print();
 	}
-	
-private:
+
 	data_list_type data;
+
+private:
 	leaf* next;
 	leaf* prev;
 	
@@ -192,7 +196,7 @@ public:
 	}
 	leaf<data_list_type>* next()
 	{
-		if(current_->next)
+		//if(current_->next)
 		current_ = current_->next;
 		return current_;
 	}
