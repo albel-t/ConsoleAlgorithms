@@ -16,10 +16,11 @@
 #include "laba_2.h"
 #include "laba_3.h"
 #include "laba_4.h"
+#include "laba_5.h"
 
 #define LABSCOUNT 4
 
-//#define TEST_MODE
+#define TEST_MODE
 
 void MenuLab4()
 {
@@ -257,16 +258,21 @@ int main()
 
 
 #ifdef TEST_MODE
+    
+    arr_for_sort arr1(12);
+    selection sort;
 
-    l4task1();
+    arr1.Print();
+
+    sort.Sort(arr1);
+
+    arr1.Print();
 
 #endif
 
 #ifndef TEST_MODE
 
-
     MainMenu();
-
 
 #endif
 
