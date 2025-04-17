@@ -258,15 +258,50 @@ int main()
 
 
 #ifdef TEST_MODE
-    
+    /*
     arr_for_sort arr1(12);
-    selection sort;
+    selection Selection;
 
     arr1.Print();
 
-    sort.Sort(arr1);
+    Selection.Sort(arr1);
 
     arr1.Print();
+
+    cout << "---" << mcl::endl;
+
+    arr_for_sort arr2(12);
+    exchange Exchange;
+
+    arr2.Print();
+
+    Exchange.Sort(arr2);
+
+    arr2.Print();
+    */
+    
+    cout << "---" << mcl::endl;
+
+    arr_for_sort arr3(12);
+    insert Insert;
+
+    arr3.Print();
+
+    Insert.Sort(arr3);
+
+    arr3.Print();
+    
+    cout << "---" << mcl::endl;
+    
+    arr_for_sort arr4(30);
+    shell Shell;
+
+    arr4.Print();
+
+    Shell.Sort(arr4);
+
+    arr4.Print();
+    
 
 #endif
 
