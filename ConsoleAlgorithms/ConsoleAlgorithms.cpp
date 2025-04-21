@@ -301,7 +301,7 @@ int main()
     Shell.Sort(arr4);
 
     arr4.Print();
-    */
+    
     arr_for_sort arr5(18);
     merger Merger;
 
@@ -310,7 +310,15 @@ int main()
     Merger.Sort(arr5);
 
     arr5.Print();
+    */
+    arr_for_sort arr6(12);
+    fast Fast;
 
+    arr6.Print();
+
+    Fast.Sort(arr6);
+
+    arr6.Print();
 
 #endif
 

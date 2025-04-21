@@ -30,7 +30,8 @@ enum sorts
 	exchange_sort,
 	insert_sort,
 	shell_sort,
-	merger_sort
+	merger_sort,
+	fast_sort
 };
 
 
@@ -99,6 +100,27 @@ public:
 		int tmp = data[index_1];
 		data[index_1] = data[index_2];
 		data[index_2] = tmp;
+	}
+	void Insert(int index_from, int index_to)
+	{
+		if (index_to < index_from)
+		{
+			int tmp = data[index_from];
+			for (int i = index_from; i > index_to; i--)
+			{
+				data[i + 1] = data[i];
+			}
+			data[index_to+1] = tmp;
+		}
+		else
+		{
+			int tmp = data[index_from];
+			for (int i = index_from; i < index_to; i++)
+			{
+				data[i] = data[i+1];
+			}
+			data[index_to - 1] = tmp;
+		}
 	}
 	bool Check(int index_1, int index_2)
 	{
@@ -282,7 +304,7 @@ public:
 		Defragment(arrs, arr, size);
 
 	}
-	
+
 
 
 	void Info() override
@@ -366,7 +388,7 @@ private:
 		for (int i = 0; i < size; i++)
 		{
 			arr[i] = arrays[0]->data[i];
-		}			
+		}
 
 	}
 	void PrintFragment(array*& fragment)
@@ -380,5 +402,93 @@ private:
 			cout << "[" << i << "] = " << mcl::nsep;
 			PrintFragment(fragments[i]);
 		}
+	}
+};
+
+class fast : public sort
+{
+public:
+	fast() : sort(fast_sort)
+	{
+
+	}
+	void Sort(arr_for_sort& arr) override
+	{
+
+		Swap(arr, arr.Size() / 2, arr.Size(), 0);
+	}
+
+
+
+	void Info() override
+	{
+
+	}
+private:
+	void Swap(arr_for_sort& arr, int middle, int size, int start)
+	{
+		cout << "__recursion__" << mcl::endl;
+		PrintSegment(arr, middle, size, start);
+/*
+		bool check_1, check_2;
+		for (int i = 1; i < middle; i++)
+		{
+			check_1 = arr.Check(middle - i, middle);
+			check_2 = arr.Check(middle + i, middle);
+			if (check_1 && check_2)
+			{
+				arr.Swap(middle - i, middle + i);
+			}
+			else if (check_1 || check_2)
+			{
+				if (check_1)
+				{
+					arr.Insert(middle - i, middle);
+					middle--;
+				}
+				if (check_2)
+				{
+					arr.Insert(middle + i, middle);
+					middle++;
+				}
+			}
+		}
+		if (size % 2 == 0)
+		{
+			if (arr.Check(middle + size/2 - 1, middle))
+			{
+				arr.Insert(middle + size - 1, middle);
+			}
+		}
+		PrintSegment(arr, middle, size, start);*/
+
+		int len_1 = middle - start;
+		int len_2 = (start + size - 1) - middle;
+		if (len_1 > 1)
+		{
+			Swap(arr, len_1 / 2 + start, len_1, start);
+		}
+		if (len_2 > 1)
+		{
+			Swap(arr, (len_2-1) / 2 + middle + 1, len_2, middle+1);
+		}
+	}
+	void PrintSegment(arr_for_sort& arr, int middle, int size, int start)
+	{
+		cout << " middle: " << middle << " size: " << size << " start: " << start << mcl::endl;
+
+		for (int i = start; i < start + size; i++)
+		{
+			if (i == middle)
+			{
+				cout << " > " << arr[i] << mcl::nsep;
+			}
+			else
+			{
+				cout << " | " << arr[i] << mcl::nsep;
+			}
+		}			
+		cout << " | " << mcl::endl;
+
 	}
 };
