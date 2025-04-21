@@ -106,20 +106,20 @@ public:
 		if (index_to < index_from)
 		{
 			int tmp = data[index_from];
-			for (int i = index_from; i > index_to; i--)
+			for (int i = index_from; i >= index_to; i--)
 			{
-				data[i + 1] = data[i];
+				data[i] = data[i-1];
 			}
-			data[index_to+1] = tmp;
+			data[index_to] = tmp;
 		}
 		else
 		{
 			int tmp = data[index_from];
-			for (int i = index_from; i < index_to; i++)
+			for (int i = index_from; i <= index_to; i++)
 			{
 				data[i] = data[i+1];
 			}
-			data[index_to - 1] = tmp;
+			data[index_to] = tmp;
 		}
 	}
 	bool Check(int index_1, int index_2)
@@ -429,29 +429,36 @@ private:
 	{
 		cout << "__recursion__" << mcl::endl;
 		PrintSegment(arr, middle, size, start);
-/*
+
 		bool check_1, check_2;
-		for (int i = 1; i < middle; i++)
+		for (int i = 1; i < middle-start; i++)
 		{
+
 			check_1 = arr.Check(middle - i, middle);
-			check_2 = arr.Check(middle + i, middle);
+			check_2 = arr.Check(middle,  middle + i);
 			if (check_1 && check_2)
 			{
+				cout << "Swap" << mcl::endl;
+
 				arr.Swap(middle - i, middle + i);
 			}
 			else if (check_1 || check_2)
 			{
 				if (check_1)
 				{
+					cout << "Insert" << mcl::endl;
 					arr.Insert(middle - i, middle);
-					middle--;
+					//middle--;
 				}
 				if (check_2)
 				{
+					cout << "Insert" << mcl::endl;
 					arr.Insert(middle + i, middle);
-					middle++;
+					//middle++;
 				}
 			}
+			PrintSegment(arr, middle, size, start);
+
 		}
 		if (size % 2 == 0)
 		{
@@ -460,7 +467,7 @@ private:
 				arr.Insert(middle + size - 1, middle);
 			}
 		}
-		PrintSegment(arr, middle, size, start);*/
+		PrintSegment(arr, middle, size, start);
 
 		int len_1 = middle - start;
 		int len_2 = (start + size - 1) - middle;
