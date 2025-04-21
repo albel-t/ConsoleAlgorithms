@@ -278,7 +278,7 @@ int main()
     Exchange.Sort(arr2);
 
     arr2.Print();
-    */
+    
     
     cout << "---" << mcl::endl;
 
@@ -301,7 +301,16 @@ int main()
     Shell.Sort(arr4);
 
     arr4.Print();
-    
+    */
+    arr_for_sort arr5(18);
+    merger Merger;
+
+    arr5.Print();
+
+    Merger.Sort(arr5);
+
+    arr5.Print();
+
 
 #endif
 

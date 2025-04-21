@@ -29,28 +29,70 @@ enum sorts
 	selection_sort,
 	exchange_sort,
 	insert_sort,
-	shell_sort
+	shell_sort,
+	merger_sort
 };
 
 
-
-
-class arr_for_sort {
+class array {
 public:
-	arr_for_sort(int len)
+	array(int len = 1)
 	{
-		random(len);
+		data = nullptr;
+		Create(len);
 	}
-	void random(int len)
+	int& operator[](int index)
 	{
-		if (data != nullptr)
+		return data[index];
+	}
+
+	int* data;
+	int size;
+	void Create(int len)
+	{
+		if ((data != nullptr)&&(size != len))
 			delete data;
 		data = new int[len];
+		size = len;
+	}
+	void Copy(int* start, int len)
+	{
+		Create(len);
+		for (int i = 0; i < len; i++)
+		{
+			data[i] = start[i];
+		}
+	}
+	~array()
+	{
+		if (data != nullptr)
+			delete[] data;
+		data = nullptr;
+	}
+	void Print()
+	{
+		for (int i = 0; i < size; i++)
+		{
+			cout << " | " << data[i] << mcl::nsep;
+		}
+		cout << " |" << mcl::endl;
+	}
+};
+
+
+class arr_for_sort : public array {
+public:
+	arr_for_sort(int len) : array(len)
+	{
+		Random(len);
+	}
+	void Random(int len)
+	{
+		Create(len);
 		for (int i = 0; i < len; i++)
 		{
 			data[i] = rand() % 1000;
 		}
-		size = len;
 	}
 	void Swap(int index_1, int index_2)
 	{
@@ -74,21 +116,14 @@ public:
 		}
 		return ind;
 	}
-	void Print()
-	{
-		for (int i = 0; i < size; i++)
-		{
-			cout << " | " << data[i] << mcl::nsep;
-		}
-		cout << " |" << mcl::endl;
-	}
+
 	int Size()
 	{
 		return size;
 	}
+
 private:
-	int* data;
-	int size;
+
 };
 
 
@@ -231,3 +266,119 @@ private:
 };
 
 
+
+class merger : public sort
+{
+public:
+	merger() : sort(merger_sort)
+	{
+
+	}
+	void Sort(arr_for_sort& arr) override
+	{
+		int size;
+		arrs = Fragment(arr, size);
+		arrs = Sort(arrs, size);
+		Defragment(arrs, arr, size);
+
+	}
+	
+
+
+	void Info() override
+	{
+
+	}
+private:
+	array** arrs;
+
+	array** Merge(array** arrays, int& size_new_arr, int size)
+	{
+		array** new_arrs;
+		size_new_arr = (size + 1) / 2;
+		new_arrs = new array * [size_new_arr];
+
+		cout << "before merge " << size << "to" << size_new_arr << mcl::endl;
+		PrintFragments(arrays, size);
+
+		for (int i = 0; i < size_new_arr; i++)
+		{
+			int j_a_max = arrays[i * 2]->size, j_b_max = (size > i * 2 + 1) ?
+				arrays[i * 2 + 1]->size : 0;
+			cout << "create arr for " << j_a_max << "+" << j_b_max << " elements:" << mcl::endl;
+			int size_ = j_a_max + j_b_max;
+			new_arrs[i] = new array(size_);
+			int j_a = 0, j_b = 0;
+
+			for (; j_a + j_b < size_;)
+			{
+				if (j_a == j_a_max) {
+					new_arrs[i]->data[j_a + j_b] = arrays[i * 2 + 1]->data[j_b];
+					j_b++;
+				}
+				else if (j_b == j_b_max) {
+					new_arrs[i]->data[j_a + j_b] = arrays[i * 2]->data[j_a];
+					j_a++;
+				}
+				else if (arrays[i * 2 + 1]->data[j_b] >= arrays[i * 2]->data[j_a]) {
+					new_arrs[i]->data[j_a + j_b] = arrays[i * 2]->data[j_a];
+					j_a++;
+				}
+				else {
+					new_arrs[i]->data[j_a + j_b] = arrays[i * 2 + 1]->data[j_b];
+					j_b++;
+				}
+			}
+			PrintFragment(new_arrs[i]);
+
+		}
+		cout << "after merge " << size << " to " << size_new_arr << mcl::endl;
+		PrintFragments(new_arrs, size_new_arr);
+		return new_arrs;
+	}
+	array**& Sort(array** arrays, int size)
+	{
+		int size_new_arr = size;
+		while (size_new_arr != 1)
+		{
+			array** tmp = Merge(arrays, size_new_arr, size);
+			for (int i = 0; i < size; i++)
+				delete arrays[i];
+			delete[] arrays;
+			arrays = tmp;
+			size = size_new_arr;
+		}
+		return arrays;
+	}
+	array** Fragment(arr_for_sort& arr, int& size)
+	{
+		size = arr.Size();
+		array** arrays = new array * [size];
+		for (int i = 0; i < size; i++)
+		{
+			arrays[i] = new array(1);
+			arrays[i]->Copy(arr.data + i, 1);
+		}
+		return arrays;
+	}
+	void Defragment(array**& arrays, arr_for_sort& arr, int size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			arr[i] = arrays[0]->data[i];
+		}			
+
+	}
+	void PrintFragment(array*& fragment)
+	{
+		fragment->Print();
+	}
+	void PrintFragments(array** fragments, int len)
+	{
+		for (int i = 0; i < len; i++)
+		{
+			cout << "[" << i << "] = " << mcl::nsep;
+			PrintFragment(fragments[i]);
+		}
+	}
+};
