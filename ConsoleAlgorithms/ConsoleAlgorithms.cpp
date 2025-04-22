@@ -311,7 +311,7 @@ int main()
 
     arr5.Print();
     */
-    arr_for_sort arr6(12);
+    arr_for_sort arr6(15);
     fast Fast;
 
     arr6.Print();
@@ -328,23 +328,6 @@ int main()
 
 #endif
 
-    /*
-    cout(10, 10) << "hello world" * color_1 << mcl::endl;
-    std::cin >> nameFile;
-    auto file1 = open("file11.txt", READ_FILE);
-    auto file2 = open("file12.txt", WRITE_FILE);
-    char buffer[80] = { 0 };
-    file_data* file1_ = read(file1);
-    cout << "file: { " * process_color << mcl::nsep;
-
-    for (int i = 0; i < file1_->size; i++)
-    {
-        cout << file1_->strings[i] * data_color << mcl::nsep;
-    }
-    cout << "} " * process_color << mcl::endl;
-
-    write(file2, file1_);
-    */
 
 
 }
