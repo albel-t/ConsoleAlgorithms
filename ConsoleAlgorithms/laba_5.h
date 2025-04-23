@@ -7,11 +7,9 @@
 #include <string.h>
 #include <cstdlib>
 #include <conio.h>
+#include <sysinfoapi.h>
 
 #include "MultiColorLine.h"
-
-
-
 
 enum debug_lvl
 {
@@ -162,7 +160,7 @@ class sort{
 public:
 	sort(sorts my_type) : my_type(my_type)
 	{	}
-protected:
+//protected:
 	virtual void Sort(arr_for_sort& arr) {  };
 	virtual void Info() {};
 private:
@@ -185,7 +183,9 @@ public:
 		}
 	}
 	void Info() override
-	{ }
+	{
+		cout << "selection sort \n\t- sorts by moving the minimum element to its place" << mcl::endl;
+	}
 private:
 };
 
@@ -213,7 +213,9 @@ public:
 		}
 	}
 	void Info() override
-	{ }
+	{ 
+		cout << "exchange sort \n\t- sorts by exchange until condition is met for all elements" << mcl::endl;
+	}
 private:
 };
 
@@ -229,7 +231,7 @@ public:
 	{
 		for (int i = start+step, j = start+step; i < arr.Size(); i += step, j = i - step)
 		{
-			for (; (j > 0)&&(arr.Check(j, j + step)); j -= step)
+			for (; (j >= 0)&&(arr.Check(j, j + step)); j -= step)
 			{
 				arr.Swap(j, j + step);
 				
@@ -241,7 +243,9 @@ public:
 		}
 	}
 	void Info() override
-	{ }
+	{
+		cout << "insert sort \n\t- sorts by bringing each element to its place, at any stage the left part is already sorted" << mcl::endl;
+	}
 protected:
 	void SetStep(int new_step)
 	{
@@ -282,7 +286,7 @@ public:
 	}
 	void Info() override
 	{
-
+		cout << "shell sort \n\t- sorts using insertion sort at different stages with different steps" << mcl::endl;
 	}
 private:
 	int GetStep(int i, int n)
@@ -297,7 +301,6 @@ private:
 		return res;
 	}
 };
-
 
 
 class merger : public sort
@@ -316,7 +319,7 @@ public:
 	}
 	void Info() override
 	{
-
+		cout << "merger sort \n\t- splits into arrays and after merging the ones that satisfy the condition, goes into recursion" << mcl::endl;
 	}
 private:
 	array** arrs;
@@ -435,7 +438,7 @@ public:
 
 	void Info() override
 	{
-
+		cout << "fast sort \n\t- sorts relative to the pivot and starts recursion" << mcl::endl;
 	}
 private:
 	void Swap(arr_for_sort& arr, int middle, int size, int start)
@@ -487,6 +490,7 @@ private:
 			if (arr.Check(start, middle))
 			{
 				arr.Insert(start, middle);
+				middle--;
 			}
 		}
 		if (debug >= sort_process)
@@ -543,7 +547,7 @@ public:
 	}
 	void Info() override
 	{ 
-	
+		cout << "heap sort \n\t- sorts using a binary tree folded into an array" << mcl::endl;
 	}
 
 private:

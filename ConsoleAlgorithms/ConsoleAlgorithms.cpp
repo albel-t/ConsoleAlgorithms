@@ -251,6 +251,14 @@ void MainMenu()
 int new_booking::last_id = 0;
 int person::last_id = 0;
 
+DWORD last_time;
+
+#define TIME_IT last_time = GetTickCount();
+#define COMPARE_TIME (int)(GetTickCount() - last_time)
+
+#define SMALL_ARR_SIZE 30
+#define BIG_ARR_SIZE 100000
+
 int main()
 {
     SetConsoleCP(1251);
@@ -260,78 +268,80 @@ int main()
 #ifdef TEST_MODE
     
     
-    arr_for_sort arr1(12);
     selection Selection;
-
-    arr1.Print();
-
-    Selection.Sort(arr1);
-
-    arr1.Print();
-
-    cout << "---" << mcl::endl;
-
-    arr_for_sort arr2(12);
     exchange Exchange;
-
-    arr2.Print();
-
-    Exchange.Sort(arr2);
-
-    arr2.Print();
-    
-    
-    cout << "---" << mcl::endl;
-
-    arr_for_sort arr3(12);
     insert Insert;
-
-    arr3.Print();
-
-    Insert.Sort(arr3);
-
-    arr3.Print();
-    
-    cout << "---" << mcl::endl;
-    
-    arr_for_sort arr4(30);
     shell Shell;
-
-    arr4.Print();
-
-    Shell.Sort(arr4);
-
-    arr4.Print();
-    cout << "---" << mcl::endl;
-
-    arr_for_sort arr5(18);
     merger Merger;
-
-    arr5.Print();
-
-    Merger.Sort(arr5);
-
-    arr5.Print();
-    cout << "---" << mcl::endl;
-
-    arr_for_sort arr6(15);
     fast Fast;
-
-    arr6.Print();
-
-    Fast.Sort(arr6);
-
-    arr6.Print();
-    cout << "---" << mcl::endl;
-
-    arr_for_sort arr7(10);
     heap Heap;
+    DWORD time1 = GetTickCount();
+    sort* sorts[7] = {&Selection , &Exchange , &Insert 
+        , &Shell , &Merger , &Fast , &Heap };
 
-    arr7.Print();
 
-    Heap.Sort(arr7);
+    arr_for_sort random_arr_30(SMALL_ARR_SIZE);
+    random_arr_30.Random(SMALL_ARR_SIZE);
+    arr_for_sort good_arr_30(SMALL_ARR_SIZE);
+    arr_for_sort bad_arr_30(SMALL_ARR_SIZE);
+    for (int i = 0; i < SMALL_ARR_SIZE; i++)
+    {
+        good_arr_30[i] = i;
+        bad_arr_30[i] = SMALL_ARR_SIZE-i;
+    }
 
-    arr7.Print();
+
+
+    for (int i = 0; i < 7; i++)
+    {
+        cout << "\n\n=====================================================\t\t" << mcl::nsep;
+
+        arr_for_sort _random_arr_30 = random_arr_30;
+        arr_for_sort _good_arr_30 = good_arr_30;
+        arr_for_sort _bad_arr_30 = bad_arr_30;
+        sorts[i]->Info();
+        int time_is;
+
+        cout << "before: " << mcl::nsep;
+        _random_arr_30.Print();
+        TIME_IT
+        sorts[i]->Sort(_random_arr_30);
+        time_is = COMPARE_TIME;
+        cout << "after: " << mcl::nsep;
+        _random_arr_30.Print();
+        if (time_is < 1)
+            cout << "time: <1ms." << mcl::endl;
+        else
+            cout << "time: " << time_is << "ms." << mcl::endl;
+
+
+        cout << "before: " << mcl::nsep;
+        _good_arr_30.Print();
+        TIME_IT
+            sorts[i]->Sort(_good_arr_30);
+        time_is = COMPARE_TIME;
+        cout << "after: " << mcl::nsep;
+        _good_arr_30.Print();
+        if (time_is < 1)
+            cout << "time: <1ms." << mcl::endl;
+        else
+            cout << "time: " << time_is << "ms." << mcl::endl;
+
+        cout << "before: " << mcl::nsep;
+        _bad_arr_30.Print();
+        TIME_IT
+            sorts[i]->Sort(_bad_arr_30);
+        time_is = COMPARE_TIME;
+        cout << "after: " << mcl::nsep;
+        _bad_arr_30.Print();
+        if (time_is < 1)
+            cout << "time: <1ms." << mcl::endl;
+        else
+            cout << "time: " << time_is << "ms." << mcl::endl;
+    }
+    DWORD time2 = GetTickCount();
+
+    cout << int(time2 - time1) << mcl::endl;
 #endif
 
 #ifndef TEST_MODE
