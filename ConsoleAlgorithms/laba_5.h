@@ -11,6 +11,15 @@
 
 #include "MultiColorLine.h"
 
+
+extern DWORD last_time;
+
+#define TIME_IT last_time = GetTickCount();
+#define COMPARE_TIME (int)(GetTickCount() - last_time)
+
+#define SMALL_ARR_SIZE 30
+#define BIG_ARR_SIZE 100000
+
 enum debug_lvl
 {
 	only_sort_result, 
@@ -18,7 +27,7 @@ enum debug_lvl
 	inheritance_process
 };
 
- debug_lvl debug = only_sort_result;
+extern debug_lvl debug;
 
 
 enum sorts
@@ -30,7 +39,8 @@ enum sorts
 	shell_sort,
 	merger_sort,
 	fast_sort,
-	heap_sort
+	heap_sort,
+	radix_sort
 };
 
 
@@ -90,7 +100,7 @@ public:
 
 class arr_for_sort : public array {
 public:
-	arr_for_sort(int len) : array(len)
+	arr_for_sort(int len = 0) : array(len)
 	{
 		Random(len);
 	}
@@ -133,6 +143,16 @@ public:
 	{
 		return data[index_1] > data[index_2];
 	}
+	void Append(int num)
+	{
+		arr_for_sort tmp = *this;
+		Create(size + 1);
+		for (int i = 0; i < size-1; i++)
+		{
+			data[i] = tmp[i];
+		}
+		data[size - 1] = num;
+	}
 	int Min(int i)
 	{
 		int min = 2000000, ind = size;
@@ -145,7 +165,18 @@ public:
 		}
 		return ind;
 	}
-
+	int Max(int i)
+	{
+		int max = 0, ind = size;
+		for (; i < size; i++)
+		{
+			if (max < data[i]) {
+				max = data[i];
+				ind = i;
+			}
+		}
+		return ind;
+	}
 	int Size()
 	{
 		return size;
@@ -569,3 +600,64 @@ private:
 	}
 	int max_index;
 };
+
+
+class radix : public sort
+{
+public:
+	radix() : sort(radix_sort)
+	{
+
+	}
+	void Sort(arr_for_sort& arr) override
+	{
+		for (int i = 0; i < MaxRadix(arr); i++)
+		{
+			Merge(Ñrushing(arr, i), arr);
+		}
+	}
+	void Info() override
+	{
+		cout << "radix sort \n\t- sorts by rank" << mcl::endl;
+	}
+
+private:
+	int MaxRadix(arr_for_sort& arr)
+	{
+		int max = arr[arr.Max(0)];
+		int i = 0;
+		for (; max > 0; i++, max = max / 10);
+		return i;
+	}
+	void Merge(arr_for_sort* arrs, arr_for_sort& arr)
+	{
+		int k = 0;
+		for (int i = 0; i < 10; i++)
+		{
+			for (int j = 0; j < arrs[i].Size(); j++)
+			{
+				arr[k] = arrs[i][j];
+				k++;
+			}
+		}
+		delete[] arrs;
+	}
+	arr_for_sort* Ñrushing(arr_for_sort& arr, int radix)
+	{
+		arr_for_sort* arrs = new arr_for_sort[10];
+		for (int i = 0; i < arr.Size(); i++)
+		{
+			arrs[GetRadix(arr[i], radix)].Append(arr[i]);
+		}
+		return arrs;
+	}
+	int GetRadix(int num, int radix)
+	{
+		return ((int)(num / pow(10, radix)) % 10);
+	}
+};
+
+
+void SortCheck(arr_for_sort& some_good_arr, sort* some_sort);
+
+void l5task1();

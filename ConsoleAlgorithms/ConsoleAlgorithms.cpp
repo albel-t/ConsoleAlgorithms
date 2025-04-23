@@ -18,10 +18,49 @@
 #include "laba_4.h"
 #include "laba_5.h"
 
-#define LABSCOUNT 4
+#define LABSCOUNT 5
 
-#define TEST_MODE
+//#define TEST_MODE
 
+void MenuLab5()
+{
+    system("cls");
+    cout << "Цель работы. Освоить основные алгоритмы сортировки данных линейной структуры." << mcl::endl;
+    cout << "********************************************************" << mcl::endl;
+
+    int select = 1;
+    while (!(GetAsyncKeyState(VK_SPACE) & 0x8000))
+    {
+        if (GetAsyncKeyState(VK_TAB) & 0x8000)
+        {
+            select++;
+            if (select > 1)
+                select = 1;
+            Sleep(70);
+        }
+        for (int l = 1; l <= 1; l++)
+        {
+            if (select == l)
+            {
+                cout(0, l + 5) << " >Task #" * select_color << l << mcl::endl;
+            }
+            else {
+                cout(0, l + 5) << "task #" * data_color << l << "     " << mcl::endl;
+            }
+        }
+    }
+    switch (select)
+    {
+    case 1:
+        system("cls");
+        Sleep(500);
+        l5task1();
+        break;
+    default:
+        break;
+    }
+
+}
 void MenuLab4()
 {
     system("cls");
@@ -242,6 +281,9 @@ void MainMenu()
     case 4:
         MenuLab4();
         break;
+    case 5:
+        MenuLab5();
+        break;
     default:
         cout(0, LABSCOUNT + 5) << "Wrong select" * error_color << mcl::endl;
         break;
@@ -251,13 +293,10 @@ void MainMenu()
 int new_booking::last_id = 0;
 int person::last_id = 0;
 
+debug_lvl debug = only_sort_result;
 DWORD last_time;
 
-#define TIME_IT last_time = GetTickCount();
-#define COMPARE_TIME (int)(GetTickCount() - last_time)
 
-#define SMALL_ARR_SIZE 30
-#define BIG_ARR_SIZE 100000
 
 int main()
 {
@@ -267,81 +306,9 @@ int main()
 
 #ifdef TEST_MODE
     
-    
-    selection Selection;
-    exchange Exchange;
-    insert Insert;
-    shell Shell;
-    merger Merger;
-    fast Fast;
-    heap Heap;
-    DWORD time1 = GetTickCount();
-    sort* sorts[7] = {&Selection , &Exchange , &Insert 
-        , &Shell , &Merger , &Fast , &Heap };
-
-
-    arr_for_sort random_arr_30(SMALL_ARR_SIZE);
-    random_arr_30.Random(SMALL_ARR_SIZE);
-    arr_for_sort good_arr_30(SMALL_ARR_SIZE);
-    arr_for_sort bad_arr_30(SMALL_ARR_SIZE);
-    for (int i = 0; i < SMALL_ARR_SIZE; i++)
-    {
-        good_arr_30[i] = i;
-        bad_arr_30[i] = SMALL_ARR_SIZE-i;
-    }
 
 
 
-    for (int i = 0; i < 7; i++)
-    {
-        cout << "\n\n=====================================================\t\t" << mcl::nsep;
-
-        arr_for_sort _random_arr_30 = random_arr_30;
-        arr_for_sort _good_arr_30 = good_arr_30;
-        arr_for_sort _bad_arr_30 = bad_arr_30;
-        sorts[i]->Info();
-        int time_is;
-
-        cout << "before: " << mcl::nsep;
-        _random_arr_30.Print();
-        TIME_IT
-        sorts[i]->Sort(_random_arr_30);
-        time_is = COMPARE_TIME;
-        cout << "after: " << mcl::nsep;
-        _random_arr_30.Print();
-        if (time_is < 1)
-            cout << "time: <1ms." << mcl::endl;
-        else
-            cout << "time: " << time_is << "ms." << mcl::endl;
-
-
-        cout << "before: " << mcl::nsep;
-        _good_arr_30.Print();
-        TIME_IT
-            sorts[i]->Sort(_good_arr_30);
-        time_is = COMPARE_TIME;
-        cout << "after: " << mcl::nsep;
-        _good_arr_30.Print();
-        if (time_is < 1)
-            cout << "time: <1ms." << mcl::endl;
-        else
-            cout << "time: " << time_is << "ms." << mcl::endl;
-
-        cout << "before: " << mcl::nsep;
-        _bad_arr_30.Print();
-        TIME_IT
-            sorts[i]->Sort(_bad_arr_30);
-        time_is = COMPARE_TIME;
-        cout << "after: " << mcl::nsep;
-        _bad_arr_30.Print();
-        if (time_is < 1)
-            cout << "time: <1ms." << mcl::endl;
-        else
-            cout << "time: " << time_is << "ms." << mcl::endl;
-    }
-    DWORD time2 = GetTickCount();
-
-    cout << int(time2 - time1) << mcl::endl;
 #endif
 
 #ifndef TEST_MODE
