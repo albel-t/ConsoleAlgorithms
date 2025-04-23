@@ -258,7 +258,8 @@ int main()
 
 
 #ifdef TEST_MODE
-    /*
+    
+    
     arr_for_sort arr1(12);
     selection Selection;
 
@@ -301,7 +302,8 @@ int main()
     Shell.Sort(arr4);
 
     arr4.Print();
-    
+    cout << "---" << mcl::endl;
+
     arr_for_sort arr5(18);
     merger Merger;
 
@@ -310,7 +312,8 @@ int main()
     Merger.Sort(arr5);
 
     arr5.Print();
-    */
+    cout << "---" << mcl::endl;
+
     arr_for_sort arr6(15);
     fast Fast;
 
@@ -319,7 +322,16 @@ int main()
     Fast.Sort(arr6);
 
     arr6.Print();
+    cout << "---" << mcl::endl;
 
+    arr_for_sort arr7(10);
+    heap Heap;
+
+    arr7.Print();
+
+    Heap.Sort(arr7);
+
+    arr7.Print();
 #endif
 
 #ifndef TEST_MODE

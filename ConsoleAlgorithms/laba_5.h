@@ -20,7 +20,7 @@ enum debug_lvl
 	inheritance_process
 };
 
- debug_lvl debug = inheritance_process;
+ debug_lvl debug = only_sort_result;
 
 
 enum sorts
@@ -31,7 +31,8 @@ enum sorts
 	insert_sort,
 	shell_sort,
 	merger_sort,
-	fast_sort
+	fast_sort,
+	heap_sort
 };
 
 
@@ -41,6 +42,14 @@ public:
 	{
 		data = nullptr;
 		Create(len);
+	}
+	array(array& another)
+	{
+		Create(another.size);
+		for(int i = 0; i < size; i++)
+		{ 
+			data[i] = another[i];
+		}
 	}
 	int& operator[](int index)
 	{
@@ -267,6 +276,8 @@ public:
 				SetStart(j);
 				insert::Sort(arr);
 			}
+			if (debug >= sort_process)
+				arr.Print();
 		}
 	}
 	void Info() override
@@ -302,11 +313,7 @@ public:
 		arrs = Fragment(arr, size);
 		arrs = Sort(arrs, size);
 		Defragment(arrs, arr, size);
-
 	}
-
-
-
 	void Info() override
 	{
 
@@ -319,14 +326,17 @@ private:
 		array** new_arrs;
 		size_new_arr = (size + 1) / 2;
 		new_arrs = new array * [size_new_arr];
-
-		cout << "before merge " << size << "to" << size_new_arr << mcl::endl;
-		PrintFragments(arrays, size);
+		if (debug >= sort_process)
+		{
+			cout << "before merge " << size << "to" << size_new_arr << mcl::endl;
+			PrintFragments(arrays, size);
+		}
 
 		for (int i = 0; i < size_new_arr; i++)
 		{
 			int j_a_max = arrays[i * 2]->size, j_b_max = (size > i * 2 + 1) ?
 				arrays[i * 2 + 1]->size : 0;
+			if (debug >= sort_process)
 			cout << "create arr for " << j_a_max << "+" << j_b_max << " elements:" << mcl::endl;
 			int size_ = j_a_max + j_b_max;
 			new_arrs[i] = new array(size_);
@@ -351,11 +361,15 @@ private:
 					j_b++;
 				}
 			}
-			PrintFragment(new_arrs[i]);
+			if (debug >= sort_process)
+				PrintFragment(new_arrs[i]);
 
 		}
-		cout << "after merge " << size << " to " << size_new_arr << mcl::endl;
-		PrintFragments(new_arrs, size_new_arr);
+		if (debug >= sort_process)
+		{
+			cout << "after merge " << size << " to " << size_new_arr << mcl::endl;
+			PrintFragments(new_arrs, size_new_arr);
+		}
 		return new_arrs;
 	}
 	array**& Sort(array** arrays, int size)
@@ -369,6 +383,8 @@ private:
 			delete[] arrays;
 			arrays = tmp;
 			size = size_new_arr;
+			if (debug >= sort_process)
+			PrintFragments(arrays, size_new_arr);
 		}
 		return arrays;
 	}
@@ -389,7 +405,6 @@ private:
 		{
 			arr[i] = arrays[0]->data[i];
 		}
-
 	}
 	void PrintFragment(array*& fragment)
 	{
@@ -418,8 +433,6 @@ public:
 		Swap(arr, arr.Size() / 2, arr.Size(), 0);
 	}
 
-
-
 	void Info() override
 	{
 
@@ -427,9 +440,13 @@ public:
 private:
 	void Swap(arr_for_sort& arr, int middle, int size, int start)
 	{
-		cout << "__recursion__" << mcl::endl;
+		
 		middle = start + (size + 1) / 2  - size % 2;
-		PrintSegment(arr, middle, size, start);
+		if (debug >= sort_process)
+		{
+			cout << "__recursion__" << mcl::endl;
+			PrintSegment(arr, middle, size, start);
+		}
 		int center = middle;
 		bool check_1, check_2;
 		for (int i = 1; i <= (size-1)/2; i++)
@@ -439,6 +456,7 @@ private:
 			check_2 = arr.Check(middle, center + i);
 			if (check_1 && check_2)
 			{
+				if (debug >= sort_process)
 				cout << "Swap" << mcl::endl;
 
 				arr.Swap(center - i, center + i);
@@ -447,28 +465,31 @@ private:
 			{
 				if (check_1)
 				{
+					if (debug >= sort_process)
 					cout << "Insert" << mcl::endl;
 					arr.Insert(center - i, middle);
 					middle--;
 				}
 				if (check_2)
 				{
+					if (debug >= sort_process)
 					cout << "Insert" << mcl::endl;
 					arr.Insert(center + i, middle);
 					middle++;
 				}
 			}
+			if (debug >= sort_process)
 			PrintSegment(arr, middle, size, start);
 
 		}
 		if (size % 2 == 0)
 		{
-			//cout << center + size / 2 << mcl::endl;
 			if (arr.Check(start, middle))
 			{
 				arr.Insert(start, middle);
 			}
 		}
+		if (debug >= sort_process)
 		PrintSegment(arr, middle, size, start);
 
 		int len_1 = middle - start;
@@ -500,4 +521,47 @@ private:
 		cout << " | " << mcl::endl;
 
 	}
+};
+
+
+class heap : public sort
+{
+public:
+	heap() : sort(heap_sort)
+	{
+
+	}
+	void Sort(arr_for_sort& arr) override
+	{
+		for (max_index = arr.Size(); max_index > 0; max_index--)
+		{
+			Check(arr, 0);
+			arr.Swap(0, max_index - 1);
+			if (debug >= sort_process)
+				arr.Print();
+		}
+	}
+	void Info() override
+	{ 
+	
+	}
+
+private:
+	void Check(arr_for_sort& arr, int index)
+	{
+		int branch_l = index*2 + 1, branch_r = index*2 + 2;
+		if (branch_l < max_index)
+		{
+			Check(arr, branch_l);
+			if (arr.Check(branch_l, index))
+				arr.Swap(branch_l, index);
+		}
+		if (branch_r < max_index)
+		{
+			Check(arr, branch_r);
+			if (arr.Check(branch_r, index))
+				arr.Swap(branch_r, index);
+		}
+	}
+	int max_index;
 };
