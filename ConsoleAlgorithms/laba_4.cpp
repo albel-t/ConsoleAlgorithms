@@ -165,8 +165,8 @@ void statistics_4(list<booking_type> list_)
 void actionsWithlist(list<booking_type> list_)
 {
 	bool out = true;
-	const int com = 11;
-	const char* actions[com] = { "show addiction", "id_booking",  "term", "type", "stars", "data", "person count", "print", "[-] delete", "[+] add", "<- Exit" };
+	const int com = 15;
+	const char* actions[com] = { "count persons / stars", "data & time - all ", "stars / all persons", "type & count persons++", "show addiction", "id_booking",  "term", "type", "stars", "data", "person count", "print", "[-] delete", "[+] add", "<- Exit"};
 	int select_a = 0, select_b = 0;
 	
 	Sleep(500);
