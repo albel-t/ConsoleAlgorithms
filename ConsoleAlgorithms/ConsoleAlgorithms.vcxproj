@@ -128,20 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleAlgorithms.cpp" />
-    <ClCompile Include="filework.cpp" />
-    <ClCompile Include="laba_1.cpp" />
-    <ClCompile Include="laba_2.cpp" />
-    <ClCompile Include="laba_3.cpp" />
-    <ClCompile Include="laba_4.cpp" />
-    <ClCompile Include="laba_5.cpp" />
     <ClCompile Include="MultiColorLine.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="filework.h" />
-    <ClInclude Include="laba_4.h" />
-    <ClInclude Include="laba_1.h" />
-    <ClInclude Include="laba_2.h" />
-    <ClInclude Include="laba_3.h" />
     <ClInclude Include="laba_5.h" />
     <ClInclude Include="MultiColorLine.h" />
   </ItemGroup>
