@@ -134,6 +134,7 @@
     <ClCompile Include="laba_3.cpp" />
     <ClCompile Include="laba_4.cpp" />
     <ClCompile Include="laba_5.cpp" />
+    <ClCompile Include="laba_6.cpp" />
     <ClCompile Include="MultiColorLine.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +144,7 @@
     <ClInclude Include="laba_2.h" />
     <ClInclude Include="laba_3.h" />
     <ClInclude Include="laba_5.h" />
+    <ClInclude Include="laba_6.h" />
     <ClInclude Include="MultiColorLine.h" />
   </ItemGroup>
   <ItemGroup>

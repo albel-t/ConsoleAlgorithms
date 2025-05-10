@@ -265,12 +265,7 @@ public:
 			for (; (j >= 0)&&(arr.Check(j, j + step)); j -= step)
 			{
 				arr.Swap(j, j + step);
-				
-				if (debug >= sort_process)
-					arr.Print();
 			}
-			if (debug >= sort_process)
-				arr.Print();			
 		}
 	}
 	void Info() override
@@ -278,16 +273,16 @@ public:
 		cout << "insert sort \n\t- sorts by bringing each element to its place, at any stage the left part is already sorted" << mcl::endl;
 	}
 protected:
-	void SetStep(int new_step)
+	void SetStep(unsigned int& new_step)
 	{
 		step = new_step;
 	}
-	void SetStart(int new_start)
+	void SetStart(unsigned int& new_start)
 	{
 		start = new_start;
 	}
 private:
-	int step, start;
+	unsigned int step, start;
 };
 
 class shell : public sort, private insert
@@ -299,20 +294,20 @@ public:
 	}
 	void Sort(arr_for_sort& arr) override
 	{
-		int step = 0;
-		for (int i = arr.Size(); i > 0; i--)
+		unsigned int step = 0;
+		for (unsigned int i = arr.Size(); i > 0; i--)
 		{
-			if(GetStep(log2(i), arr.Size()) == step)
+			unsigned int tmp = GetStep(log2(i), arr.Size());
+			if(tmp == step)
 			{ continue; }
-			step = GetStep(log2(i), arr.Size());
-			for (int j = 0; j < step; j++)
+			step = tmp;
+			for (unsigned int j = 0; j < step; j++)
 			{
 				SetStep(step);
 				SetStart(j);
 				insert::Sort(arr);
 			}
-			if (debug >= sort_process)
-				arr.Print();
+
 		}
 	}
 	void Info() override
@@ -320,7 +315,7 @@ public:
 		cout << "shell sort \n\t- sorts using insertion sort at different stages with different steps" << mcl::endl;
 	}
 private:
-	int GetStep(int i, int n)
+	unsigned int GetStep(unsigned int i, unsigned int n)
 	{
 		int res;
 		if (i % 2 == 0)

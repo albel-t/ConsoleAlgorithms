@@ -2,18 +2,19 @@
 
 
 #include"laba_5.h"
+#include"MultiColorLine.h"
 
 
 
 void SortCheck(arr_for_sort& some_good_arr, sort* some_sort)
 {
-	cout << "before: " << mcl::nsep;
-	some_good_arr.Print();
+	//cout << "before: " << mcl::nsep;
+	//some_good_arr.Print();
 	TIME_IT
 		some_sort->Sort(some_good_arr);
 	int time_is = COMPARE_TIME;
-	cout << "after: " << mcl::nsep;
-	some_good_arr.Print();
+	//cout << "after: " << mcl::nsep;
+	//some_good_arr.Print();
 	if (time_is < 1)
 		cout << "time: <1ms." << mcl::endl;
 	else
@@ -57,7 +58,7 @@ void l5task1()
 	}
 
 
-	for (int i = 0; i < 8; i++)
+	/*for (int i = 0; i < 8; i++)
 	{
 		cout << "\n=====================================================\t\t" * data_color << mcl::nsep;
 		sorts[i]->Info();
@@ -67,9 +68,13 @@ void l5task1()
 		SortCheck(_random_arr_30, sorts[i]);
 		SortCheck(_good_arr_30, sorts[i]);
 		SortCheck(_bad_arr_30, sorts[i]);
+	}*/
+	for (int i = 10000; i < 2147483647; i+=10000)
+	{
+		arr_for_sort _random_arr(i);
+		cout << i << " elements" * data_color << mcl::endl;
+		SortCheck(_random_arr, &Shell);
 	}
 
-	SortCheck(random_arr_100000, &Heap);
-	SortCheck(good_arr_100000, &Heap);
-	SortCheck(bad_arr_100000, &Heap);
+
 }
