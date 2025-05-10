@@ -17,10 +17,11 @@
 #include "laba_3.h"
 #include "laba_4.h"
 #include "laba_5.h"
+#include "laba_6.h"
 
-#define LABSCOUNT 5
+#define LABSCOUNT 6
 
-//#define TEST_MODE
+#define TEST_MODE
 
 void MenuLab5()
 {
@@ -306,8 +307,32 @@ int main()
 
 #ifdef TEST_MODE
     
+    Tree nums(10);
+    nums.Add(5);
 
+    nums.Add(2);
+    nums.Add(1);
+    nums.Add(3);
 
+    nums.Add(7);
+    nums.Add(6);
+    nums.Add(8);
+
+    nums.Add(15);
+
+    nums.Add(12);
+    nums.Add(11);
+    nums.Add(13);
+
+    nums.Add(17);
+    nums.Add(16);
+    nums.Add(18);
+    for (int i = 0; i < 4; i++)
+    {
+        Tree::lenx = 0; // инициализацияlenx = 0;
+        nums.Print(i, 0, 4);
+    }
+    
 
 #endif
 
