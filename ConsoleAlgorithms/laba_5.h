@@ -87,9 +87,11 @@ public:
 			delete[] data;
 		data = nullptr;
 	}
-	void Print()
+	void Print(int start = 0, int stop = -1)
 	{
-		for (int i = 0; i < size; i++)
+		if (stop == -1)
+			stop = size;
+		for (int i = start; i < stop; i++)
 		{
 			cout << " | " << data[i] << mcl::nsep;
 		}
@@ -254,18 +256,23 @@ class insert : public sort
 {
 public:
 	insert() : sort(insert_sort)
-	{ 
+	{
 		step = 1;
 		start = 0;
 	}
 	void Sort(arr_for_sort& arr) override
 	{
-		for (int i = start+step, j = start+step; i < arr.Size(); i += step, j = i - step)
+		for (int i = start, j = start + step; i < arr.Size(); i += step, j = i - step)
 		{
-			for (; (j >= 0)&&(arr.Check(j, j + step)); j -= step)
+			for (; (j >= 0) && (arr.Check(j, j + step)); j -= step)
 			{
 				arr.Swap(j, j + step);
+
+				if (debug >= sort_process)
+					arr.Print();
 			}
+			if (debug >= sort_process)
+				arr.Print();
 		}
 	}
 	void Info() override
@@ -273,41 +280,85 @@ public:
 		cout << "insert sort \n\t- sorts by bringing each element to its place, at any stage the left part is already sorted" << mcl::endl;
 	}
 protected:
-	void SetStep(unsigned int& new_step)
+	void SetStep(int new_step)
 	{
 		step = new_step;
 	}
-	void SetStart(unsigned int& new_start)
+	void SetStart(int new_start)
 	{
 		start = new_start;
 	}
 private:
-	unsigned int step, start;
+	int step, start;
 };
 
-class shell : public sort, private insert
+//class shell : public sort, private insert
+//{
+//public:
+//	shell() : sort(shell_sort)
+//	{
+//
+//	}
+//	void Sort(arr_for_sort& arr) override
+//	{
+//		unsigned int step = 0;
+//		for (unsigned int i = arr.Size(); i > 0; i--)
+//		{
+//			unsigned int tmp = GetStep(log2(i), arr.Size());
+//			if(tmp == step)
+//			{ continue; }
+//			step = tmp;
+//			for (unsigned int j = 0; j < step; j++)
+//			{
+//				SetStep(step);
+//				SetStart(j);
+//				insert::Sort(arr);
+//			}
+//
+//		}
+//	}
+//	void Info() override
+//	{
+//		cout << "shell sort \n\t- sorts using insertion sort at different stages with different steps" << mcl::endl;
+//	}
+//private:
+//	unsigned int GetStep(unsigned int i, unsigned int n)
+//	{
+//		int res;
+//		if (i % 2 == 0)
+//			res = 9 * pow(2, i) - 9 * pow(2, i / 2) + 1;
+//		else
+//			res = 8 * pow(2, i) - 6 * pow(2, (i + 1) / 2) + 1;
+//		if (res * 3 > n)
+//			return GetStep(i - 1, n);
+//		return res;
+//	}
+//};
+class shell : public insert
 {
 public:
-	shell() : sort(shell_sort)
+	shell() : insert()
 	{
 
 	}
 	void Sort(arr_for_sort& arr) override
 	{
-		unsigned int step = 0;
-		for (unsigned int i = arr.Size(); i > 0; i--)
+		int step = 0;
+		for (int i = arr.Size(); i > 0; i--)
 		{
-			unsigned int tmp = GetStep(log2(i), arr.Size());
-			if(tmp == step)
-			{ continue; }
-			step = tmp;
-			for (unsigned int j = 0; j < step; j++)
+			if (GetStep(log2(i), arr.Size()) == step)
+			{
+				continue;
+			}
+			step = GetStep(log2(i), arr.Size());
+			for (int j = 0; j < step; j++)
 			{
 				SetStep(step);
 				SetStart(j);
 				insert::Sort(arr);
 			}
-
+			if (debug >= sort_process)
+				arr.Print();
 		}
 	}
 	void Info() override
@@ -315,7 +366,7 @@ public:
 		cout << "shell sort \n\t- sorts using insertion sort at different stages with different steps" << mcl::endl;
 	}
 private:
-	unsigned int GetStep(unsigned int i, unsigned int n)
+	int GetStep(int i, int n)
 	{
 		int res;
 		if (i % 2 == 0)
@@ -327,7 +378,6 @@ private:
 		return res;
 	}
 };
-
 
 class merger : public sort
 {

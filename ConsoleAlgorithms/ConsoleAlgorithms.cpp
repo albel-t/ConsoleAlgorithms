@@ -306,33 +306,28 @@ int main()
 
 
 #ifdef TEST_MODE
-    
-    Tree nums(10);
-    nums.Add(5);
-
-    nums.Add(2);
-    nums.Add(1);
-    nums.Add(3);
-
-    nums.Add(7);
-    nums.Add(6);
-    nums.Add(8);
-
-    nums.Add(15);
-
-    nums.Add(12);
-    nums.Add(11);
-    nums.Add(13);
-
-    nums.Add(17);
-    nums.Add(16);
-    nums.Add(18);
-    for (int i = 0; i < 4; i++)
-    {
-        Tree::lenx = 0; // инициализацияlenx = 0;
-        nums.Print(i, 0, 4);
+   {
+        arr_for_find arr_30(30);
+        consistent Consistent;
+        arr_30.Print();
+        cout << Consistent.Find(arr_30, 145) << mcl::endl;
+        arr_30.Print();
     }
-    
+    {
+        arr_for_find arr_30(30);
+        binary binary;
+        arr_30.Print();
+        cout << binary.Find(arr_30, 711) << mcl::endl;
+        arr_30.Print();
+    }
+    {
+        arr_for_find arr_30(30);
+        interpolation interpolation;
+        arr_30.Print();
+        cout << interpolation.Find(arr_30, 805) << mcl::endl;
+        arr_30.Print();
+
+    }
 
 #endif
 
