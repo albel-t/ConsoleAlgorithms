@@ -308,12 +308,17 @@ int main()
 
 #ifdef TEST_MODE
     {
-        graph mewGraph(10);
+        graph_unweighted mewGraph(10);
         mewGraph.print();
         mewGraph.Find(0, 1);
 
     }
+    {
+        graph_weighted mewGraph(10);
+        mewGraph.print();
+        mewGraph.Find(0, 1);
 
+    }
 #endif
 
 #ifndef TEST_MODE
