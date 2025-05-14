@@ -18,6 +18,7 @@
 #include "laba_4.h"
 #include "laba_5.h"
 #include "laba_6.h"
+#include "laba_7.h"
 
 #define LABSCOUNT 6
 
@@ -306,26 +307,10 @@ int main()
 
 
 #ifdef TEST_MODE
-   {
-        arr_for_find arr_30(30);
-        consistent Consistent;
-        arr_30.Print();
-        cout << Consistent.Find(arr_30, 145) << mcl::endl;
-        arr_30.Print();
-    }
     {
-        arr_for_find arr_30(30);
-        binary binary;
-        arr_30.Print();
-        cout << binary.Find(arr_30, 711) << mcl::endl;
-        arr_30.Print();
-    }
-    {
-        arr_for_find arr_30(30);
-        interpolation interpolation;
-        arr_30.Print();
-        cout << interpolation.Find(arr_30, 805) << mcl::endl;
-        arr_30.Print();
+        graph mewGraph(10);
+        mewGraph.print();
+        mewGraph.Find(0, 1);
 
     }
 

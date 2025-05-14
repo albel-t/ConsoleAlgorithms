@@ -292,48 +292,7 @@ private:
 	int step, start;
 };
 
-//class shell : public sort, private insert
-//{
-//public:
-//	shell() : sort(shell_sort)
-//	{
-//
-//	}
-//	void Sort(arr_for_sort& arr) override
-//	{
-//		unsigned int step = 0;
-//		for (unsigned int i = arr.Size(); i > 0; i--)
-//		{
-//			unsigned int tmp = GetStep(log2(i), arr.Size());
-//			if(tmp == step)
-//			{ continue; }
-//			step = tmp;
-//			for (unsigned int j = 0; j < step; j++)
-//			{
-//				SetStep(step);
-//				SetStart(j);
-//				insert::Sort(arr);
-//			}
-//
-//		}
-//	}
-//	void Info() override
-//	{
-//		cout << "shell sort \n\t- sorts using insertion sort at different stages with different steps" << mcl::endl;
-//	}
-//private:
-//	unsigned int GetStep(unsigned int i, unsigned int n)
-//	{
-//		int res;
-//		if (i % 2 == 0)
-//			res = 9 * pow(2, i) - 9 * pow(2, i / 2) + 1;
-//		else
-//			res = 8 * pow(2, i) - 6 * pow(2, (i + 1) / 2) + 1;
-//		if (res * 3 > n)
-//			return GetStep(i - 1, n);
-//		return res;
-//	}
-//};
+
 class shell : public insert
 {
 public:
