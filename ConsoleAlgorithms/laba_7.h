@@ -89,7 +89,7 @@ public:
 		{
 			//cout << start << " - " << i << "| " << min_way[i] << mcl::endl;
 		}
-		cout << min_way[stop] << mcl::endl;
+		cout << " Len  =  " << min_way[stop] << mcl::endl;
 	}
 private:
 	int** units;
@@ -181,10 +181,11 @@ public:
 				}
 			}
 		}
-		cout << "answer:" << mcl::endl;
+		cout << "answer:\n Way  =  " << mcl::nsep;
 		for (auto it : answer)
 			cout << it << "," << mcl::nsep;
-		cout << "\n" << int(answer.size()-1) << mcl::endl;
+		cout << " Len  =  " << mcl::nsep;
+		cout << int(answer.size()-1) << mcl::endl;
 
 
 	}
@@ -223,6 +224,7 @@ private:
 
 
 
+void l7task1();
 
 
 

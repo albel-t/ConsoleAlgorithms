@@ -20,10 +20,89 @@
 #include "laba_6.h"
 #include "laba_7.h"
 
-#define LABSCOUNT 6
+#define LABSCOUNT 7
 
-#define TEST_MODE
+//#define TEST_MODE
 
+
+void MenuLab7()
+{
+    system("cls");
+    cout << "Цель работы. Освоить основные алгоритмы поиска кратчайшего пути в графах." << mcl::endl;
+    cout << "********************************************************" << mcl::endl;
+
+    int select = 1;
+    while (!(GetAsyncKeyState(VK_SPACE) & 0x8000))
+    {
+        if (GetAsyncKeyState(VK_TAB) & 0x8000)
+        {
+            select++;
+            if (select > 1)
+                select = 1;
+            Sleep(70);
+        }
+        for (int l = 1; l <= 1; l++)
+        {
+            if (select == l)
+            {
+                cout(0, l + 5) << " >Task #" * select_color << l << mcl::endl;
+            }
+            else {
+                cout(0, l + 5) << "task #" * data_color << l << "     " << mcl::endl;
+            }
+        }
+    }
+    switch (select)
+    {
+    case 1:
+        system("cls");
+        Sleep(500);
+        l7task1();
+        break;
+    default:
+        break;
+    }
+
+}
+void MenuLab6()
+{
+    system("cls");
+    cout << "Цель работы. Освоить основные алгоритмы поиска данных линейной структуры." << mcl::endl;
+    cout << "********************************************************" << mcl::endl;
+
+    int select = 1;
+    while (!(GetAsyncKeyState(VK_SPACE) & 0x8000))
+    {
+        if (GetAsyncKeyState(VK_TAB) & 0x8000)
+        {
+            select++;
+            if (select > 1)
+                select = 1;
+            Sleep(70);
+        }
+        for (int l = 1; l <= 1; l++)
+        {
+            if (select == l)
+            {
+                cout(0, l + 5) << " >Task #" * select_color << l << mcl::endl;
+            }
+            else {
+                cout(0, l + 5) << "task #" * data_color << l << "     " << mcl::endl;
+            }
+        }
+    }
+    switch (select)
+    {
+    case 1:
+        system("cls");
+        Sleep(500);
+        l6task1();
+        break;
+    default:
+        break;
+    }
+
+}
 void MenuLab5()
 {
     system("cls");
@@ -285,6 +364,12 @@ void MainMenu()
         break;
     case 5:
         MenuLab5();
+        break;
+    case 6:
+        MenuLab6();
+        break;
+    case 7:
+        MenuLab7();
         break;
     default:
         cout(0, LABSCOUNT + 5) << "Wrong select" * error_color << mcl::endl;

@@ -67,7 +67,7 @@ public:
 	};
 	void Info() override
 	{  
-	
+		cout << "Consistent find: " * data_color << mcl::endl;
 
 	};
 private:
@@ -82,12 +82,12 @@ public:
 	int Find(arr_for_find& arr, int element) override
 	{
 		shell::Sort(arr);
-		arr.Print();
+		//arr.Print();
 		return BinaryFind(arr, 0, arr.Size(), element);
 	};
 	int BinaryFind(arr_for_find& arr, int start, int stop, int element)
 	{
-		arr.Print(start, stop);
+		//arr.Print(start, stop);
 		int mid = (start + stop) / 2;
 		if (stop - start >= 1)
 		{
@@ -109,6 +109,7 @@ public:
 	}
 	void Info() override
 	{
+		cout << "Binary find: " * data_color << mcl::endl;
 		
 	};
 private:
@@ -126,12 +127,12 @@ public:
 	int Find(arr_for_find& arr, int element) override
 	{
 		shell::Sort(arr);
-		arr.Print();
+		//arr.Print();
 		return InterpolationFind(arr, 0, arr.Size(), element);
 	};
 	int InterpolationFind(arr_for_find& arr, int start, int stop, int element)
 	{
-		arr.Print(start, stop);
+		//arr.Print(start, stop);
 		int d = ((stop - start) * (element - arr[start])) / (arr[stop-1] - arr[start]) + start;
 		if (stop - start >= 1)
 		{
@@ -154,7 +155,7 @@ public:
 	}
 	void Info() override
 	{
-
+		cout << "Interpolation find: " * data_color  << mcl::endl;
 	};
 private:
 	finds my_type;
@@ -163,6 +164,6 @@ private:
 
 
 
-
+void l6task1();
 
 

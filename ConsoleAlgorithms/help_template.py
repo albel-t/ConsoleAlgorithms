@@ -33,7 +33,7 @@ def addTaskTitle(text, paragraph):
 path_to_project = "C:/Users/Bill/source/repos/ConsoleAlgorithms"
 path_to_template = "C:/Users/Bill/source/repos/ConsoleAlgorithms/ConsoleAlgorithms/algorithms_template.docx"
 name_solution = "ConsoleAlgorithms"
-name_laba = "laba_5"
+name_laba = "laba_7"
 # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 doc = Document(path_to_template)
 
